@@ -1,0 +1,14 @@
+
+<view class="avatar">
+<navigator class='nav-avatar' url=''>
+<i-avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="large"></i-avatar>
+</navigator>
+</view>
+<i-cell-group>
+   <i-cell title="个人中心" is-link url="/pages/person/person"></i-cell>
+   <i-cell title="使用说明" is-link url="/pages/advice/advice"></i-cell>
+   <i-cell title="关于我们" is-link url='../us/us'></i-cell>
+   <i-cell title="建议反馈" is-link url="/pages/advice/advice"></i-cell>
+  </i-cell-group>
+
+

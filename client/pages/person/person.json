@@ -1,0 +1,11 @@
+ { "usingComponents": {
+    "i-input": "../../dist/input/index"
+  },
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "个人中心",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  
+}

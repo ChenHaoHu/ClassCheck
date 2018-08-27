@@ -1,0 +1,28 @@
+<!-- <i-panel title="基础用法">
+
+    <i-input value="{{ value2 }}" type="number"   maxlength="4"placeholder="请输入签到码" />
+</i-panel>
+<i-button bind:click="handleClick" type="success">提交
+</i-button> -->
+
+<view class='item'>
+  <view class='name'>请输入四位密匙</view>
+  <view class='password'>
+    <block wx:for="{{password.value}}" wx:key="">
+      <view class='passwordinput'>
+        <input type='number' maxlength='1' value='{{item}}' id="{{index}}" bindinput='changepassword'></input>
+      </view>
+    </block>
+    <view class='passwordinput' wx:if="{{password.value.length < 4 }}">
+      <input type='number' maxlength='1' bindinput="inputpassword" value='{{password.inputvalue}}' focus='{{true}}'></input>
+    </view>
+    <block wx:for="{{3-password.value.length}}" wx:key="">
+      <view class='passwordinput'>
+        <input type='number' maxlength='1' value=''></input>
+      </view>
+    </block>
+  </view>
+
+</view>
+
+  <i-button bind:click="handleClick" type="primary" size="default" shape="circle" class='go'>我要签到</i-button>

@@ -1,0 +1,39 @@
+.password {
+  width: 70%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.passwordinput {
+  margin-top: 10rpx;
+  width: 60rpx;
+  height: 60rpx;
+  border-bottom: 1rpx solid #00a4ff;
+  display: flex;
+  flex-direction: row;
+}
+
+.password input {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.item{
+  width: 80%;
+  margin-left: 20%;
+  margin-top: 300rpx;
+}
+
+.name{
+  font-size: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.go{
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 40rpx;
+}

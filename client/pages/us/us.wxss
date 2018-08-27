@@ -1,0 +1,11 @@
+/* pages/us/us.wxss */
+.pages{
+  width: 300px;
+  height: 400px;
+}
+.text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
