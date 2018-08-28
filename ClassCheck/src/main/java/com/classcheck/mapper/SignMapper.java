@@ -1,6 +1,8 @@
 package com.classcheck.mapper;
 
+import com.alibaba.fastjson.JSON;
 import com.classcheck.model.Sign;
+import com.classcheck.model.SignItem;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +17,16 @@ import java.util.List;
 @Component(value = "signMapper")
 public interface SignMapper {
 
-    @Select("select * from tb_sign where pass = #{pass}")
-    List<Sign> getsignbypass(@Param("pass")String pass);
+    @Select("select * from tb_sign where signid = #{id}")
+    List<Sign> getsignbyid(@Param("id")String id);
 
-    @Insert("insert into tb_sign(adminid,createtime,endtime,stulist,content) values (#{sign.adminid},#{sign.createtime},#{sign.endtime},#{sign.stulist},#{sign.content}) ")
-    @Options(useGeneratedKeys = true, keyProperty = "sign.pass")
-    void insertsign(@Param("sign")Sign sign);
+    @Insert("insert into tb_sign(adminid,createtime,time,stulist,content) values (#{sign.adminid},#{sign.createtime},#{sign.time},#{sign.stulist},#{sign.content}) ")
+    @Options(useGeneratedKeys = true, keyProperty = "sign.signid")
+    void buildsign(@Param("sign")Sign sign);
+
+
+    @Update("update tb_sign SET stulist = JSON_ARRAY_INSERT(stulist,'$[0]',#{item}) WHERE signid = #{signid}")
+    int insertstusign(@Param("item") String item,@Param("signid")Integer signid);
+
+
 }

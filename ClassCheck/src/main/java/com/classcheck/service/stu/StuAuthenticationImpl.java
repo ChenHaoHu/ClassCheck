@@ -1,4 +1,4 @@
-package com.classcheck.service;
+package com.classcheck.service.stu;
 
 
 import okhttp3.*;

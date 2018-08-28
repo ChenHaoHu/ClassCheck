@@ -4,7 +4,7 @@ import com.classcheck.common.response.RespCode;
 import com.classcheck.common.response.ResponseEntity;
 import com.classcheck.mapper.StuMapper;
 import com.classcheck.model.Stu;
-import com.classcheck.service.StuAuthentication;
+import com.classcheck.service.stu.StuAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +26,6 @@ public class StuController {
 
     @RequestMapping("/stu/add")
     public ResponseEntity adastu(String name,String password){
-
        Map<String,String> map =  stuAuthentication.getStuData(name,password);
         if(map.size()==0){
             return new ResponseEntity(RespCode.SUCCESS,"fail");

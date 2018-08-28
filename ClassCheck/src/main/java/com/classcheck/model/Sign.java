@@ -13,9 +13,8 @@ import java.util.Map;
 public class Sign {
     private Integer signid;
     private Integer adminid;
-    private String pass;
     private String createtime;
-    private String endtime;
+    private String time;
     private String stulist;
     private String content;
 
@@ -35,14 +34,6 @@ public class Sign {
         this.adminid = adminid;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
     public String getCreatetime() {
         return createtime;
     }
@@ -51,12 +42,12 @@ public class Sign {
         this.createtime = createtime;
     }
 
-    public String getEndtime() {
-        return endtime;
+    public String gettime() {
+        return time;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime = endtime;
+    public void settime(String time) {
+        this.time = time;
     }
 
     public String getStulist() {
@@ -75,12 +66,11 @@ public class Sign {
         this.content = content;
     }
 
-    public Sign(Integer signid, Integer adminid, String pass, String createtime, String endtime, String stulist, String content) {
+    public Sign(Integer signid, Integer adminid, String createtime, String time, String stulist, String content) {
         this.signid = signid;
         this.adminid = adminid;
-        this.pass = pass;
         this.createtime = createtime;
-        this.endtime = endtime;
+        this.time = time;
         this.stulist = stulist;
         this.content = content;
     }

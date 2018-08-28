@@ -5,13 +5,13 @@ import com.classcheck.common.response.RespCode;
 import com.classcheck.common.response.ResponseEntity;
 import com.classcheck.mapper.SignMapper;
 import com.classcheck.model.Sign;
-import com.classcheck.model.SignJson;
-import com.fasterxml.jackson.annotation.JsonAlias;
+import com.classcheck.model.SignItem;
+import com.classcheck.service.math.MathUtil;
+import com.classcheck.service.time.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,28 +20,58 @@ import java.util.List;
  * @Description:
  */
 
-@RestController
+@RestController()
 public class SignController {
-
 
     @Autowired
     SignMapper signMapper;
+    @Autowired
+    TimeUtil timeUtil;
+    @Autowired
+    MathUtil mathUtil;
 
+    /**
+     *
+     * @param id
+     * @param time
+     * @param tips
+     * @return
+     */
     @RequestMapping("/sign/build")
-    public ResponseEntity buildSign(){
-
-        List<SignJson> list = new ArrayList<>();
-        list.add(new SignJson(12,1121,13135,"455","成功"));
-        list.add(new SignJson(12,1121,13135,"455","成功"));
-        list.add(new SignJson(12,1121,13135,"455","成功"));
-        list.add(new SignJson(12,1121,13135,"455","成功"));
-//        SignJson signJson= new SignJson(12,1121,13135,"455","成功");
-//        System.out.println(JSON.toJSONString(signJson));
-
-        Sign sign = new Sign(110,110,"1531","2017-8-9","2017-8-9",JSON.toJSONString(list),"content");
-
-        signMapper.insertsign(sign);
-
+    public ResponseEntity buildSign(Integer id,String time,String tips){
+        Sign sign = new Sign(110,id,timeUtil.getNowTime(),time,"[]",tips);
+        signMapper.buildsign(sign);
         return  new ResponseEntity(RespCode.SUCCESS,sign);
     }
+
+
+    /**
+     *
+     * @param signid
+     * @return
+     */
+    @RequestMapping("/sign/find")
+    public ResponseEntity findSign(String signid){
+        List<Sign> data = signMapper.getsignbyid(signid);
+        return  new ResponseEntity(RespCode.SUCCESS,data);
+    }
+
+
+    /**
+     *
+     * @param signid
+     * @param usrid
+     * @param longitude
+     * @param latitude
+     * @return
+     */
+    @RequestMapping("/sign/sign")
+    public ResponseEntity findSign(Integer signid,Integer usrid,String longitude,String latitude){
+        SignItem  signItem = new SignItem(usrid,longitude,latitude,timeUtil.getNowTime(),"未确认");
+       if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
+           return  new ResponseEntity(RespCode.SUCCESS,"ok");
+       }
+        return  new ResponseEntity(RespCode.SUCCESS,"fail");
+    }
+
 }

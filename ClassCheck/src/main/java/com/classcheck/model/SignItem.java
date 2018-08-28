@@ -7,19 +7,19 @@ import java.io.Serializable;
  * @Date: 18-8-27 16:01
  * @Description:
  */
-public class SignJson implements Serializable {
+public class SignItem implements Serializable {
     //签到的学生id
     private Integer id;
     //签到学生的位置 经度
-    private Integer longitude;
+    private String longitude;
     //签到学生的位置 纬度
-    private Integer latitude;
+    private String latitude;
     //签到时间
     private String signtime;
     //签到状态
     private String signstate;
 
-    public SignJson(Integer id, Integer longitude, Integer latitude, String signtime, String signstate) {
+    public SignItem(Integer id, String longitude, String latitude, String signtime, String signstate) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -35,19 +35,19 @@ public class SignJson implements Serializable {
         this.id = id;
     }
 
-    public Integer getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Integer longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public Integer getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Integer latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
