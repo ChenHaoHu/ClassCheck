@@ -1,12 +1,10 @@
 {
   "pages": [
+
       "pages/index/index",
     "pages/signdata/signdata",
-     
     "pages/signs/signs",
-   
-    "pages/buildsign/buildsign",
-
+        "pages/buildsign/buildsign",
     "pages/login/login",
     "pages/setting/setting",
     "pages/us/us",

@@ -39,6 +39,9 @@ Page({
       })
       return false;
     }
+    wx.showLoading({
+      title: '绑定中',
+    })
     wx.request({
       url: api.login,
       data: {
@@ -46,16 +49,28 @@ Page({
         password: _this.data.passwd
       },
       success: function (res) {
+        wx.hideLoading()
         console.log(res)
         if (res.data.data.name!= undefined){
          wx.showModal({
            title: '绑定成功',
            content: '欢迎' + res.data.data.name + "同学",
+           success(ee){
+             if(ee.confirm){
+               wx.setStorageSync("userid", res.data.data.userid)
+               wx.switchTab({
+                 url: '../index/index',
+               })
+             }
+             if(ee.cancel){
+               wx.setStorageSync("userid", res.data.data.userid)
+               wx.switchTab({
+                 url: '../index/index',
+               })
+             }
+           }
          })
-          wx.setStorageSync("userid", res.data.data.userid )
-          wx.switchTab({
-            url: '../index/index',
-          })
+         
        }else{
           wx.showModal({
             title: '提示',

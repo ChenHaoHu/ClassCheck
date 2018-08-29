@@ -8,7 +8,11 @@ Page({
     pass:""
   },
   buildsign:function(){
+ 
    if(this.data.pass == "123321"){
+     wx.showLoading({
+       title: '创建中',
+     })
      var that = this;
      wx.getLocation({
        type: 'wgs84',
@@ -28,6 +32,7 @@ Page({
              latitude: latitude
            },
            success: function (e) {
+             wx.hideLoading()
              console.log(e.data)
              that.setData({
                num: e.data.data.signid
@@ -61,5 +66,25 @@ Page({
        content: '密匙错误',
      })
    }
+  },
+  changinput:function(e){
+    var that = this;
+    console.log(e.detail.detail.value)
+    console.log(e.currentTarget.id)
+    if (e.currentTarget.id == "tips"){
+      that.setData({
+        tips: e.detail.detail.value
+      });
+    }
+    if (e.currentTarget.id == "time") {
+      that.setData({
+        time: e.detail.detail.value
+      });
+    }
+    if (e.currentTarget.id == "pass") {
+      that.setData({
+        pass: e.detail.detail.value
+      });
+    }
   }
 });

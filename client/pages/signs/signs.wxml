@@ -31,13 +31,13 @@
 
 <i-button bind:click="handleClick3" type="primary" size="default" shape="circle" class='go'>查看数据</i-button>
 
-<i-modal title="标题" visible="{{ visible1 }}" bind:ok="sure" bind:cancel="fail" >
+<i-modal title="提示" visible="{{ visible1 }}" bind:ok="sure" bind:cancel="fail" >
     <view>{{content}}</view>
 <view>{{time}}</view>
 <view>有效时间:{{tt}}分钟</view>
 </i-modal>
 
-<i-modal title="标题" visible="{{ visible2 }}" bind:ok="sure2" bind:cancel="fail" >
+<i-modal title="提示" visible="{{ visible2 }}" bind:ok="sure2" bind:cancel="fail" >
     <view>{{content2}}</view>
 <view>{{time2}}</view>
 <view>有效时间:{{tt2}}分钟</view>

@@ -46,7 +46,7 @@ start = function () {
     var message = $("#input").val();
     // 获取数据
     $.ajax({
-        url: "http://localhost:8080/sign/find?signid=" + message,
+        url: "https://welnpu.hcyang.top/sign/find?signid=" + message,
         async: true,
         success: function (res) {
             console.log(res.data[0])
