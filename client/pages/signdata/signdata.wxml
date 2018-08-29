@@ -6,7 +6,7 @@
 <scroll-view  scroll-y style='height:1000rpx;'>
 <block wx:for="{{data}}" wx:key="">
 <view class='item'>
- {{item.name}}  {{item.stuid}} {{item.time}} {{item.signstate}}
+ {{item.name}}  {{item.stuid}} {{item.distance}}m {{item.time}} {{item.signstate}}
 </view>
 
 </block>

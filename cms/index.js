@@ -55,8 +55,9 @@ start = function () {
 
             var createtime = new Date(res.data[0].createtime)
            
-            var tt = createtime.getTime()+60*parseInt(res.data[0].time)  - new Date().getTime();
-
+            var tt = 60*parseInt(res.data[0].time) - (new Date().getTime()/1000 - createtime.getTime()/1000)
+            
+            console.log(tt)
             if(tt  > 0){
                 maxtime = tt;
             }else{
