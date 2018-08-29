@@ -1,18 +1,21 @@
 {
   "pages": [
       "pages/index/index",
-        "pages/signs/signs",
-  
+    "pages/signdata/signdata",
+     
+    "pages/signs/signs",
+   
+    "pages/buildsign/buildsign",
+
     "pages/login/login",
     "pages/setting/setting",
     "pages/us/us",
     "pages/advice/advice",
     "pages/person/person"
-
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#00a4ff",
+    "navigationBarBackgroundColor": "#2d8cf0",
     "navigationBarTitleText": "签到",
     "navigationBarTextStyle": "white"
   },

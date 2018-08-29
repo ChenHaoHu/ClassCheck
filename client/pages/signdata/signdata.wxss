@@ -1,0 +1,21 @@
+.main{
+  margin-top: 80rpx;
+  margin-bottom: 80rpx;
+}
+
+.title{
+  text-align: center;
+  font-size: 50rpx;
+  margin-top: 70rpx;
+  margin-bottom: 30rpx;
+}
+
+.item{
+  width: 90%;
+  margin-left: 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  margin-top: 50rpx;
+  border-bottom: 1rpx solid rebeccapurple;
+}

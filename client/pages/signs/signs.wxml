@@ -25,4 +25,25 @@
 
 </view>
 
-  <i-button bind:click="handleClick" type="primary" size="default" shape="circle" class='go'>我要签到</i-button>
+<i-button bind:click="handleClick1" type="primary" size="default" shape="circle" class='go'>我要签到</i-button>
+
+<i-button bind:click="handleClick2" type="primary" size="default" shape="circle" class='go'>帮请假</i-button>
+
+<i-button bind:click="handleClick3" type="primary" size="default" shape="circle" class='go'>查看数据</i-button>
+
+<i-modal title="标题" visible="{{ visible1 }}" bind:ok="sure" bind:cancel="fail" >
+    <view>{{content}}</view>
+<view>{{time}}</view>
+<view>有效时间:{{tt}}分钟</view>
+</i-modal>
+
+<i-modal title="标题" visible="{{ visible2 }}" bind:ok="sure2" bind:cancel="fail" >
+    <view>{{content2}}</view>
+<view>{{time2}}</view>
+<view>有效时间:{{tt2}}分钟</view>
+</i-modal>
+
+
+<modal hidden="{{hiddenmodalput}}" title="请输入请假人的真实姓名" confirm-text="提交" cancel-text="重置" bindcancel="cancel" bindconfirm="confirm">  
+    <input type='text'placeholder="请输入内容"  bindinput='chagename' auto-focus/>  
+</modal>  

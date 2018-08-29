@@ -14,12 +14,11 @@ public class Stu {
     //学号
     private String stuid;
     //签到成功的id
-    private List<Integer> sign;
+    private String sign;
     //签到失败的id
-    private List<Integer> unsign;
+    private String unsign;
 
-
-    public Stu(Integer userid, String name, String stuid, List<Integer> sign, List<Integer> unsign) {
+    public Stu(Integer userid, String name, String stuid, String sign, String unsign) {
         this.userid = userid;
         this.name = name;
         this.stuid = stuid;
@@ -51,19 +50,19 @@ public class Stu {
         this.stuid = stuid;
     }
 
-    public List<Integer> getSign() {
+    public String getSign() {
         return sign;
     }
 
-    public void setSign(List<Integer> sign) {
+    public void setSign(String sign) {
         this.sign = sign;
     }
 
-    public List<Integer> getUnsign() {
+    public String getUnsign() {
         return unsign;
     }
 
-    public void setUnsign(List<Integer> unsign) {
+    public void setUnsign(String unsign) {
         this.unsign = unsign;
     }
 }

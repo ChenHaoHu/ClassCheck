@@ -17,6 +17,22 @@ public class Sign {
     private String time;
     private String stulist;
     private String content;
+    //老师的位置 经度
+    private String longitude;
+    //老师的位置 纬度
+    private String latitude;
+
+
+    public Sign(Integer signid, Integer adminid, String createtime, String time, String stulist, String content, String longitude, String latitude) {
+        this.signid = signid;
+        this.adminid = adminid;
+        this.createtime = createtime;
+        this.time = time;
+        this.stulist = stulist;
+        this.content = content;
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
 
     public Integer getSignid() {
         return signid;
@@ -42,11 +58,11 @@ public class Sign {
         this.createtime = createtime;
     }
 
-    public String gettime() {
+    public String getTime() {
         return time;
     }
 
-    public void settime(String time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -66,13 +82,20 @@ public class Sign {
         this.content = content;
     }
 
-    public Sign(Integer signid, Integer adminid, String createtime, String time, String stulist, String content) {
-        this.signid = signid;
-        this.adminid = adminid;
-        this.createtime = createtime;
-        this.time = time;
-        this.stulist = stulist;
-        this.content = content;
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 }
 

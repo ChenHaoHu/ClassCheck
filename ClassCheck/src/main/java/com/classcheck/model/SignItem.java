@@ -7,7 +7,8 @@ import java.io.Serializable;
  * @Date: 18-8-27 16:01
  * @Description:
  */
-public class SignItem implements Serializable {
+//implements Serializable
+public class SignItem  {
     //签到的学生id
     private Integer id;
     //签到学生的位置 经度

@@ -1,0 +1,10 @@
+.main{
+  margin-top: 80rpx;
+  margin-bottom: 80rpx;
+}
+
+.title{
+  text-align: center;
+  font-size: 50rpx;
+  margin-top: 70rpx;
+}

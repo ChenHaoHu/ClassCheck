@@ -25,7 +25,7 @@ public class MathUtilImpl implements MathUtil{
          * @return
          */
         @Override
-        public  double getDistangce(double lat1, double lng1, double lat2, double lng2)
+        public  double getDistangce(double lng1, double lat1, double lng2, double lat2)
         {
             double radLat1 = rad(lat1);
             double radLat2 = rad(lat2);

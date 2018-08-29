@@ -1,1 +1,12 @@
-<i-button bind:click="handleClick" type="primary" size="default" shape="circle">我要签到</i-button>
+<view class='show'>
+  <view class='userAvatar'>
+    <open-data type="userAvatarUrl"></open-data>
+  </view>
+</view>
+  <view class="name">
+    欢迎 <open-data type="userNickName"></open-data>
+  </view>
+
+<i-button bind:click="tosign" type="primary" size="default" shape="circle">我要签到</i-button>
+
+<i-button bind:click="buildsign" type="primary" size="default" shape="circle">创建签到</i-button>

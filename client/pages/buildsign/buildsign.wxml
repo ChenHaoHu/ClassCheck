@@ -1,0 +1,10 @@
+
+
+<view class='title'>填写签到信息</view>
+<i-panel  class = 'main'>
+    <i-input value="{{ tips }}" title="备注" autofocus placeholder="微信小程序课程 3-5节 5A507" />
+    <i-input value="{{ time }}" type="number" title="有效时间" placeholder="分钟为单位" />
+        <i-input value="{{ pass }}" type="number" title="密匙" placeholder="" />
+</i-panel>
+
+<i-button bind:click="buildsign" type="primary" size="default" shape="circle">创建签到</i-button>

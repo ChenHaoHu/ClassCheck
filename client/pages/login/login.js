@@ -53,6 +53,9 @@ Page({
            content: '欢迎' + res.data.data.name + "同学",
          })
           wx.setStorageSync("userid", res.data.data.userid )
+          wx.switchTab({
+            url: '../index/index',
+          })
        }else{
           wx.showModal({
             title: '提示',

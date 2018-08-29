@@ -42,4 +42,10 @@ public class StuController {
         }
 
     }
+
+    @RequestMapping("/test")
+    public ResponseEntity ds(){
+            return new ResponseEntity(RespCode.SUCCESS,"test");
+
+    }
 }
