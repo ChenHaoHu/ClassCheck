@@ -46,14 +46,14 @@
             <li class="breadcrumb-item active">学生出勤情况</li>
           </ol>
         </div>
-        <!-- /.col -->
+
       </div>
       <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
   </div>
 
-  <div class="form-group" style="width:60%;margin-left:20%; display: flex; ">
+  <div class="form-group" style="width:90%;margin-left:5%;display: flex; ">
     <div class="form-group">
       <input type="number" class="form-control" id="input" onclick="input()" style="width:160px; margin-right:20px;" value="" placeholder="填写签到号码">
     </div>
@@ -64,6 +64,31 @@
     <div class="form-group">
       <input type="button" class="form-control" id="end" style="width:140px;" value="停止刷新">
     </div>
+
+   <div  style="margin-left:20px; display: flex; justify-content: space-between; width: 40%; ">
+    <div class="form-group" style="margin-left:20px; ">
+      一班:<br>
+      成功签到:<span id="class1_success_sign">100</span>人;<br>
+      成功请假:<span id="class1_success_rest">100</span>人;<br>
+      签到超时:<span id="class1_fail_sign">100</span>人;<br>
+      请假超时:<span id="class1_fail_rest">100</span>人;<br>
+    </div>
+    <div class="form-group" style="margin-left:20px; ">
+      二班:<br>
+      成功签到:<span id="class2_success_sign">100</span>人;<br>
+      成功请假:<span id="class2_success_rest">100</span>人;<br>
+      签到超时:<span id="class2_fail_sign">100</span>人;<br>
+      请假超时:<span id="class2_fail_rest">100</span>人;<br>
+    </div>
+    <div class="form-group" style="margin-left:20px;">
+      三班:<br>
+      成功签到:<span id="class3_success_sign">100</span>人;<br>
+      成功请假:<span id="class3_success_rest">100</span>人;<br>
+      签到超时:<span id="class3_fail_sign">100</span>人;<br>
+      请假超时:<span id="class3_fail_rest">100</span>人;<br>
+    </div>
+
+   </div>
   </div>
   <div class="content-header">
     <div class="container-fluid">
@@ -95,6 +120,9 @@
                 <th>学生学号</th>
                 <th>距离</th>
                 <th>状态</th>
+                <th>班级</th>
+                <th>次序</th>
+              
                 <th>签到时间</th>
               </tr>
             </thead>
