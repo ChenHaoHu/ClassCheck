@@ -1,4 +1,4 @@
-var app = getApp();
+ var app = getApp();
 var api = require('../../api.js');
 Page({
   data: {

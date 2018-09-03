@@ -71,7 +71,7 @@ public class SignController {
      * @return
      */
     @RequestMapping("/sign/sign")
-    public ResponseEntity toSign(Integer signid,Integer usrid,String longitude,String latitude){
+    public ResponseEntity toSign(Integer signid,Integer usrid,String longitude,String latitude,String tips){
 
         String now = timeUtil.getNowTime();
         Sign sign = signMapper.getsignbyid(signid+"").get(0);
@@ -89,6 +89,7 @@ public class SignController {
         System.out.println(creattime);
         System.out.println(signtime);
         System.out.println(time);
+
         //签到超时
         if(creattime - signtime > time){
             SignItem  signItem = new SignItem(usrid,longitude,latitude,now,"签到超时");

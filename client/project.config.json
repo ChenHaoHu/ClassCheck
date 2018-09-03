@@ -33,13 +33,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
 					"name": "单页编译",
 					"pathName": "pages/signs/signs",
 					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "二维码页面测试",
+					"pathName": "pages/qrcode/qrcode",
+					"query": "time=2018.9.2 12：00&intro=汇编语言课程&id=1000"
 				}
 			]
 		}

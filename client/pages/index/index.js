@@ -19,8 +19,16 @@ Page({
     }
   },
   buildsign: function () {
-    wx.navigateTo({
-      url: '../buildsign/buildsign',
+    // wx.navigateTo({
+    //   url: '../buildsign/buildsign',
+    // })
+    // 只允许从相机扫码
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: (res) => {
+        console.log(res)
+
+      }
     })
   },
 })
