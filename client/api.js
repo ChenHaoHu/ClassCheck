@@ -1,4 +1,5 @@
-var ip = "https://welnpu.hcyang.top";
+// var ip = "https://welnpu.hcyang.top";
+var ip = "http://localhost:8080";
 var wss = "wss://welnpu.hcyang.top";
 var api = {
 

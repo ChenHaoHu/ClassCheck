@@ -13,17 +13,20 @@ public class Stu {
     private String name;
     //学号
     private String stuid;
-    //签到成功的id
-    private String sign;
-    //签到失败的id
-    private String unsign;
 
-    public Stu(Integer userid, String name, String stuid, String sign, String unsign) {
+    private String classname;
+
+    private String college;
+
+    private String creattime;
+
+    public Stu(Integer userid, String name, String stuid, String classname, String college, String creattime) {
         this.userid = userid;
         this.name = name;
         this.stuid = stuid;
-        this.sign = sign;
-        this.unsign = unsign;
+        this.classname = classname;
+        this.college = college;
+        this.creattime = creattime;
     }
 
     public Integer getUserid() {
@@ -50,19 +53,27 @@ public class Stu {
         this.stuid = stuid;
     }
 
-    public String getSign() {
-        return sign;
+    public String getClassname() {
+        return classname;
     }
 
-    public void setSign(String sign) {
-        this.sign = sign;
+    public void setClassname(String classname) {
+        this.classname = classname;
     }
 
-    public String getUnsign() {
-        return unsign;
+    public String getCollege() {
+        return college;
     }
 
-    public void setUnsign(String unsign) {
-        this.unsign = unsign;
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public String getCreattime() {
+        return creattime;
+    }
+
+    public void setCreattime(String creattime) {
+        this.creattime = creattime;
     }
 }

@@ -58,27 +58,31 @@ Page({
            success(ee){
              if(ee.confirm){
                wx.setStorageSync("userid", res.data.data.userid)
+               wx.setStorageSync("name", res.data.data.name)
+               wx.setStorageSync("islogin", true)
                wx.switchTab({
                  url: '../index/index',
                })
              }
              if(ee.cancel){
                wx.setStorageSync("userid", res.data.data.userid)
+               wx.setStorageSync("name", res.data.data.name)
+               wx.setStorageSync("islogin", true)
                wx.switchTab({
                  url: '../index/index',
                })
              }
            }
          })
-         
        }else{
           wx.showModal({
             title: '提示',
-            content: "密码错误，绑定失败",
+            content: res.data.data,
           })
        }
       },
       fail: function (res) {
+        wx.hideLoading();
         wx.showModal({
           title: '提示',
           content: "连接错误，绑定失败",

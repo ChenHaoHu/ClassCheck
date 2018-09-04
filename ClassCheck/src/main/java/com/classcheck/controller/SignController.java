@@ -38,8 +38,8 @@ public class SignController {
      * @return
      */
     @RequestMapping("/sign/build")
-    public ResponseEntity buildSign(Integer id,String time,String tips,String longitude,String latitude){
-        Sign sign = new Sign(110,id,timeUtil.getNowTime(),time,"[]",tips,longitude,latitude);
+    public ResponseEntity buildSign(Integer id,String time,String tips){
+        Sign sign = new Sign(110,id,timeUtil.getNowTime(),time,"[]",tips);
         signMapper.buildsign(sign);
         return  new ResponseEntity(RespCode.SUCCESS,sign);
     }
@@ -66,12 +66,11 @@ public class SignController {
      *
      * @param signid
      * @param usrid
-     * @param longitude
-     * @param latitude
+     * @param codetype
      * @return
      */
     @RequestMapping("/sign/sign")
-    public ResponseEntity toSign(Integer signid,Integer usrid,String longitude,String latitude,String tips){
+    public ResponseEntity toSign(Integer signid,Integer usrid,String codetype){
 
         String now = timeUtil.getNowTime();
         Sign sign = signMapper.getsignbyid(signid+"").get(0);
@@ -92,14 +91,14 @@ public class SignController {
 
         //签到超时
         if(creattime - signtime > time){
-            SignItem  signItem = new SignItem(usrid,longitude,latitude,now,"签到超时");
+            SignItem  signItem = new SignItem(usrid,codetype,now,"签到超时");
             if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
                 return  new ResponseEntity(RespCode.SUCCESS,"签到超时");
             }
             return  new ResponseEntity(RespCode.SUCCESS,"fail");
         }
         //签到成功
-        SignItem  signItem = new SignItem(usrid,longitude,latitude,now,"签到成功");
+        SignItem  signItem = new SignItem(usrid,codetype,now,"签到成功");
        if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
 
            return  new ResponseEntity(RespCode.SUCCESS,"签到成功");
@@ -111,12 +110,11 @@ public class SignController {
      *
      * @param signid
      * @param usrid
-     * @param longitude
-     * @param latitude
+     * @param codetype
      * @return
      */
     @RequestMapping("/sign/rest")
-    public ResponseEntity toRest(Integer signid,Integer usrid,String longitude,String latitude,String who){
+    public ResponseEntity toRest(Integer signid,Integer usrid,String codetype,String who){
 
         String now = timeUtil.getNowTime();
         Sign sign = signMapper.getsignbyid(signid+"").get(0);
@@ -136,14 +134,14 @@ public class SignController {
         System.out.println(time);
         //签到超时
         if(creattime - signtime > time){
-            SignItem  signItem = new SignItem(usrid,longitude,latitude,now,"帮"+who+"请假超时");
+            SignItem  signItem = new SignItem(usrid,codetype,now,"帮"+who+"请假超时");
             if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
                 return  new ResponseEntity(RespCode.SUCCESS,"帮"+who+"请假超时");
             }
             return  new ResponseEntity(RespCode.SUCCESS,"fail");
         }
         //签到成功
-        SignItem  signItem = new SignItem(usrid,longitude,latitude,now,"帮"+who+"请假成功");
+        SignItem  signItem = new SignItem(usrid,codetype,now,"帮"+who+"请假成功");
         if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
 
             return  new ResponseEntity(RespCode.SUCCESS,"帮"+who+"请假成功");
@@ -151,21 +149,19 @@ public class SignController {
         return  new ResponseEntity(RespCode.SUCCESS,"fail");
     }
 
-    /**
-     *
-     * @param signid
-     * @param usrid
-     * @param longitude
-     * @param latitude
-     * @return
-     */
-    @RequestMapping("/sign/leaf")
-    public ResponseEntity toLeave(Integer signid,Integer usrid,String longitude,String latitude,String signstate){
-        SignItem  signItem = new SignItem(usrid,longitude,latitude,timeUtil.getNowTime(),signstate);
-        if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
-            return  new ResponseEntity(RespCode.SUCCESS,"ok");
-        }
-        return  new ResponseEntity(RespCode.SUCCESS,"fail");
-    }
+//    /**
+//     *
+//     * @param signid
+//     * @param usrid
+//     * @return
+//     */
+//    @RequestMapping("/sign/leaf")
+//    public ResponseEntity toLeave(Integer signid,Integer usrid,String signstate){
+//        SignItem  signItem = new SignItem(usrid,timeUtil.getNowTime(),signstate);
+//        if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
+//            return  new ResponseEntity(RespCode.SUCCESS,"ok");
+//        }
+//        return  new ResponseEntity(RespCode.SUCCESS,"fail");
+//    }
 
 }

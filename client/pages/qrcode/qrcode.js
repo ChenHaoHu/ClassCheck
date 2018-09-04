@@ -1,5 +1,6 @@
 // pages/main/index.js
 var QR = require("../../utils/qrcode.js");
+var Dec = require('../../public.js');//引用封装好的加密解密js
 Page({
   data: {
     canvasHidden: false,
@@ -10,6 +11,8 @@ Page({
     time:"2018-9-10 12:00"
   },
   onLoad: function (options) {
+   
+
     var that = this;
     that.setData({
       time:options.time,
@@ -21,12 +24,15 @@ Page({
     var min = new Date().getTime();
     var id = options.id;
     var con = min + "@" + id+"@signprogram"+"@"+"胡晨阳"
+   con = Dec.Encrypt(con);
     that.createQrCode(con, "mycanvas", size.w, size.h);
     setInterval(function(){
       var min = new Date().getTime();
       var id = 1034;
+      con = Dec.Encrypt(con);
       var con = min + "@" + id + "@signprogram" + "@" + "胡晨阳"
       that.createQrCode(con, "mycanvas", size.w, size.h);
+      
     },6000);
   },
 
@@ -77,13 +83,10 @@ Page({
       urls: [img] // 需要预览的图片http链接列表
     })
   },
- 
- draw:function(){
-console.log("dasdsa")
- },
  back:function(){
    wx.switchTab({
      url: '../index/index',
    })
- }
+ },
+
 })

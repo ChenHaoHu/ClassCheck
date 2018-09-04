@@ -4,9 +4,13 @@
   </view>
 </view>
   <view class="name">
-    欢迎 <open-data type="userNickName"></open-data>
+    欢迎 <open-data type="userNickName" wx:if="{{name == 'no'}}"></open-data>
+    <text wx:else>{{name}}</text> 
   </view>
 
-<i-button bind:click="tosign" type="primary" size="default" shape="circle">我要签到</i-button>
+<div bindtap="toscan"  size="default" class='go'>我要签到</div>
 
-<i-button bind:click="buildsign" type="primary" size="default" shape="circle">创建签到</i-button>
+<div bindtap="torest" size="default"  class='go'>帮请假</div>
+
+<div bindtap="todata"  size="default"  class='go'>查看数据</div>
+

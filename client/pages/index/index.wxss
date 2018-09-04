@@ -10,7 +10,7 @@
   border-radius: 50%;
 }
 
-.show{
+.show {
   margin-top: 80rpx;
   width: 100%;
   display: flex;
@@ -18,10 +18,28 @@
   justify-content: center;
 }
 
-.name{
+.name {
   width: 100%;
   text-align: center;
   margin-top: 40rpx;
   font-size: 40rpx;
   margin-bottom: 30rpx;
+}
+
+.go {
+  width: 60%;
+  margin-left: 20%;
+  background-color: #2d8cf0;
+  color: white;
+  height: 80rpx;
+  font-size: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  margin-top: 30rpx;
+  border-radius: 30rpx;
+}
+
+text{
+  font-size: 50rpx;
+  
 }

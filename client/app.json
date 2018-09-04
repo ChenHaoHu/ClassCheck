@@ -1,15 +1,11 @@
 {
   "pages": [
-    "pages/signs/signs",
-    "pages/qrcode/qrcode",
     "pages/index/index",
+    "pages/qrcode/qrcode",
     "pages/signdata/signdata",
     "pages/buildsign/buildsign",
     "pages/login/login",
-    "pages/setting/setting",
-    "pages/us/us",
-    "pages/advice/advice",
-    "pages/person/person"
+    "pages/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",

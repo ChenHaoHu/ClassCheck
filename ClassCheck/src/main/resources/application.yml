@@ -7,8 +7,8 @@ wxapp:
 
 spring:
   datasource:
-    username: classcheck
-    password: KYiRN7CkeHGeKJZb
+    username: root
+    password: root
     url: jdbc:mysql://127.0.0.1:3306/classcheck?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -37,13 +37,13 @@ spring:
 #    schema:
 #      - classpath:department.sql
 
-server:
-  port: 443
-  ssl:
-    key-store: classpath:214955576050011.pfx
-    key-store-password: 214955576050011
-    key-store-type: PKCS12
 #server:
-#  port: 8080
+#  port: 443
+#  ssl:
+#    key-store: classpath:214955576050011.pfx
+#    key-store-password: 214955576050011
+#    key-store-type: PKCS12
+server:
+  port: 8080
   tomcat:
    max-http-post-size: 104857600

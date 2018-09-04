@@ -20,7 +20,7 @@ public interface SignMapper {
     @Select("select * from tb_sign where signid = #{id}")
     List<Sign> getsignbyid(@Param("id")String id);
 
-    @Insert("insert into tb_sign(adminid,createtime,time,stulist,longitude,latitude,content) values (#{sign.adminid},#{sign.createtime},#{sign.time},#{sign.stulist},#{sign.longitude},#{sign.latitude},#{sign.content}) ")
+    @Insert("insert into tb_sign(adminid,createtime,time,stulist,content) values (#{sign.adminid},#{sign.createtime},#{sign.time},#{sign.stulist},#{sign.content}) ")
     @Options(useGeneratedKeys = true, keyProperty = "sign.signid")
     void buildsign(@Param("sign")Sign sign);
 

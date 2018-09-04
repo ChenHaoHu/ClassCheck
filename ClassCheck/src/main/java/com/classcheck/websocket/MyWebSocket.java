@@ -129,11 +129,11 @@ public class MyWebSocket {
             item.put("time",JSON.parseObject((String)(json.get(i))).get("signtime").toString() );
             item.put("signstate",JSON.parseObject((String)(json.get(i))).get("signstate").toString());
             item.put("signid", sign.getSignid().toString());
-            double longitude1 = Double.parseDouble(JSON.parseObject((String)(json.get(i))).get("longitude").toString());
-            double latitude1 =  Double.parseDouble(JSON.parseObject((String)(json.get(i))).get("latitude").toString());
-            double longitude2 =  Double.parseDouble(sign.getLongitude());
-            double latitude2 =  Double.parseDouble(sign.getLatitude());
-            item.put("distance", mathUtil.getDistangce(longitude1,latitude1,longitude2,latitude2)+"");
+//            double longitude1 = Double.parseDouble(JSON.parseObject((String)(json.get(i))).get("longitude").toString());
+//            double latitude1 =  Double.parseDouble(JSON.parseObject((String)(json.get(i))).get("latitude").toString());
+//            double longitude2 =  Double.parseDouble(sign.getLongitude());
+//            double latitude2 =  Double.parseDouble(sign.getLatitude());
+//            item.put("distance", mathUtil.getDistangce(longitude1,latitude1,longitude2,latitude2)+"");
             data.add(item);
         }
         return data;

@@ -2,6 +2,10 @@ package com.classcheck.service.stu;
 
 
 import okhttp3.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -47,16 +51,38 @@ public class StuAuthenticationImpl implements StuAuthentication {
                   .build();
           response = client.newCall(request2).execute();
           String str = response.body().string();
-          Pattern pattern = Pattern.compile("(学号:){1}.*(院系:){1}");
-          Matcher matcher =  pattern.matcher(str);
-          while (matcher.find()){
-              System.out.println(matcher.group());
-              map.put("stuid",matcher.group().substring(3,13));
-              map.put("name",matcher.group().substring(28,matcher.group().length()-15));
+
+//          Pattern pattern = Pattern.compile("(学号:){1}.*(班级:){1}");
+//          Matcher matcher =  pattern.matcher(str);
+//          while (matcher.find()){
+//              System.out.println(matcher.group());
+//              map.put("stuid",matcher.group().substring(3,13));
+//              map.put("name",matcher.group().substring(28,matcher.group().length()-15));
+//          }
+          Document doc = Jsoup.parse(str);
+          Elements tbody =   doc.getElementsByTag("tbody");
+
+          Elements tr  = tbody.get(1).getElementsByTag("tr");
+          Element tr2 =  tr.get(1);
+          String con = tr2.getElementsByTag("td").get(0).text();
+          System.out.println(con);
+          String[] items = con.split(" ");
+          for (int i = 0; i < items.length; i++) {
+              String[] data = items[i].split(":");
+              if("姓名".equals(data[0])){
+                  map.put("name",data[1]);
+              }
+              if("班级".equals(data[0])){
+                  map.put("class",data[1]);
+              }
+              if("学号".equals(data[0])){
+                  map.put("stuid",data[1]);
+              }
+              if("院系".equals(data[0])){
+                  map.put("college",data[1]);
+              }
           }
-
       }catch (Exception e){
-
       }
         return map;
     }
