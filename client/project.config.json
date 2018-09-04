@@ -38,8 +38,8 @@
 				{
 					"id": 0,
 					"name": "单页编译",
-					"pathName": "pages/setting/setting",
-					"query": ""
+					"pathName": "pages/rest/rest",
+					"query": "signid=1021"
 				},
 				{
 					"id": 1,

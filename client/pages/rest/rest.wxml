@@ -1,0 +1,33 @@
+<view class="page__hd">
+  <view class="page__title">请假申请</view>
+  <view class="page__desc">请假帮助人: {{username}}</view>
+</view>
+<view class="weui-cells__title">请假人</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="输入要请假的同学姓名" bindinput='inputname' />
+    </view>
+  </view>
+</view>
+
+<view class="weui-cells__title">请假人学号</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输请假的同学学号" bindinput='inputid' />
+    </view>
+  </view>
+</view>
+
+<view class="weui-cells__title">请假原因</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" placeholder="请输入文本" style="height: 3.3em" bindinput='inputtextarea' />
+      <view class="weui-textarea-counter">{{num}}/300</view>
+    </view>
+  </view>
+</view>
+
+<div bindtap="torest"  size="default"  class='go'>我要创建</div>

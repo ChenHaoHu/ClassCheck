@@ -1,0 +1,13 @@
+
+.go {
+  width: 60%;
+  margin-left: 20%;
+  background-color: #2d8cf0;
+  color: white;
+  height: 80rpx;
+  font-size: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  margin-top: 30rpx;
+  border-radius: 30rpx;
+}

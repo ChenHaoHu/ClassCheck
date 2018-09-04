@@ -14,3 +14,5 @@
 
 <div bindtap="todata"  size="default"  class='go'>查看数据</div>
 
+<div bindtap="tobuild"  size="default"  class='go'>我要创建</div>
+

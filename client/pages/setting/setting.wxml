@@ -1,9 +1,15 @@
-<i-cell-group>
-  <i-cell title="个人中心" is-link ></i-cell>
-  <i-cell title="使用说明" is-link ></i-cell>
-  <i-cell title="建议反馈" is-link ></i-cell>
-  <button open-type='feedback'></button>
-  <i-cell title="关于我们" is-link ></i-cell>
+<view class="list">
+  <view>个人信息</view>
+  <view>使用说明</view>
+  <view class='feedback'>
+    <button open-type='feedback'>建议反馈</button>
+  </view>
+    <view class='kefu'>
+    <button open-type='feedback'>联系客服</button>
+  </view>
+  <view>免责声明</view>
+  <view>我要打赏</view>
+  <view>关于我们</view>
+</view>
 
-</i-cell-group>
 

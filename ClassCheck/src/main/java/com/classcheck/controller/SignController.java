@@ -109,43 +109,12 @@ public class SignController {
     /**
      *
      * @param signid
-     * @param usrid
-     * @param codetype
      * @return
      */
     @RequestMapping("/sign/rest")
-    public ResponseEntity toRest(Integer signid,Integer usrid,String codetype,String who){
-
+    public ResponseEntity toRest(Integer signid,Integer userid,String reststuname,String reststuid,String reason){
         String now = timeUtil.getNowTime();
-        Sign sign = signMapper.getsignbyid(signid+"").get(0);
-//        System.out.println(sign.getCreatetime().substring(11,13));
-//        System.out.println(sign.getCreatetime().substring(14,16));
-//        System.out.println(sign.getCreatetime().substring(17,19));
-        int creattime = Integer.parseInt(sign.getCreatetime().substring(11,13))*60*60+
-                Integer.parseInt(sign.getCreatetime().substring(14,16))*60+
-                Integer.parseInt(sign.getCreatetime().substring(17,19));
 
-        int signtime = Integer.parseInt(now.substring(11,13))*60*60+
-                Integer.parseInt(now.substring(14,16))*60+
-                Integer.parseInt(now.substring(17,19));
-        int time = Integer.parseInt(sign.getTime())*60;
-        System.out.println(creattime);
-        System.out.println(signtime);
-        System.out.println(time);
-        //签到超时
-        if(creattime - signtime > time){
-            SignItem  signItem = new SignItem(usrid,codetype,now,"帮"+who+"请假超时");
-            if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
-                return  new ResponseEntity(RespCode.SUCCESS,"帮"+who+"请假超时");
-            }
-            return  new ResponseEntity(RespCode.SUCCESS,"fail");
-        }
-        //签到成功
-        SignItem  signItem = new SignItem(usrid,codetype,now,"帮"+who+"请假成功");
-        if( signMapper.insertstusign(JSON.toJSONString(signItem),signid) ==1){
-
-            return  new ResponseEntity(RespCode.SUCCESS,"帮"+who+"请假成功");
-        }
         return  new ResponseEntity(RespCode.SUCCESS,"fail");
     }
 

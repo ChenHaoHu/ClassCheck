@@ -1,4 +1,4 @@
-var Dec = require('../../public.js');//引用封装好的加密解密js
+var Dec = require('../../public.js'); //引用封装好的加密解密js
 
 Page({
 
@@ -6,10 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name:"no"
+    name: "no"
   },
 
-  onLoad:function(){
+  onLoad: function() {
     var islogin = wx.getStorageSync("islogin");
     var that = this;
     if (islogin) {
@@ -21,26 +21,10 @@ Page({
     }
   },
 
-  tosign: function() {
-    var userid = wx.getStorageSync("userid")
-    if (userid.length == 0) {
-      wx.navigateTo({
-        url: '../login/login',
-      })
-    } else {
-      wx.navigateTo({
-        url: '../signs/signs',
-      })
-    }
-  },
-
   toscan() {
     var isok = this.check();
     if (isok == true) {
       var that = this
-      this.setData({
-        visible1: false
-      });
       var scandata = "";
       wx.scanCode({
         onlyFromCamera: true,
@@ -50,7 +34,7 @@ Page({
             title: '提示',
             content: res.result,
           })
-           scandata = Dec.Decrypt(scandata)
+          scandata = Dec.Decrypt(scandata)
           var data = scandata.split("@")
           console.log(data[0] - new Date().getTime())
           console.log(data)
@@ -92,9 +76,23 @@ Page({
   check: function() {
     var islogin = wx.getStorageSync("islogin");
     if (islogin) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
+    }
+  },
+
+
+  torest:function(){
+    var isok = this.check();
+    if (isok == true) {
+      wx.navigateTo({
+        url: '../rest/rest',
+      })
+    }else{
+      wx.navigateTo({
+        url: '../login/login',
+      })
     }
   }
 })

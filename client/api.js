@@ -7,8 +7,8 @@ var api = {
   buildsign: ip + "/sign/build",
   findsign: ip + "/sign/find",
   tosign: ip + "/sign/sign",
-  torest: ip + "/sign/rest",
   signdata: wss + "/websocket",
+  torest: ip + "/sign/rest",
 };
 
 

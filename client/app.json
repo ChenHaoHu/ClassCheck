@@ -1,11 +1,12 @@
 {
   "pages": [
+  "pages/rest/rest",
     "pages/index/index",
+    "pages/setting/setting",
     "pages/qrcode/qrcode",
     "pages/signdata/signdata",
     "pages/buildsign/buildsign",
-    "pages/login/login",
-    "pages/setting/setting"
+    "pages/login/login"  
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -14,7 +15,7 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "selectedColor": "#1296db",
+    "selectedColor": "#2d8cf0",
     "list": [
       {
         "pagePath": "pages/index/index",
