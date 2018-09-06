@@ -3,15 +3,20 @@ package com.classcheck.websocket;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.classcheck.common.response.RespCode;
+import com.classcheck.common.response.ResponseEntity;
 import com.classcheck.mapper.SignMapper;
 import com.classcheck.mapper.StuMapper;
 import com.classcheck.model.Sign;
 import com.classcheck.model.SignItem;
 import com.classcheck.model.Stu;
+import com.classcheck.service.analydata.AnalyData;
 import com.classcheck.service.math.MathUtil;
 import com.classcheck.service.time.TimeUtil;
 import com.classcheck.service.time.TimeUtilImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.server.standard.SpringConfigurator;
 
@@ -31,7 +36,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 @ServerEndpoint(value = "/websocket")
 @Component
-
 public class MyWebSocket {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
@@ -45,18 +49,21 @@ public class MyWebSocket {
     private Session session;
 
 
-    boolean flag = true;
+    private String signid = "1000";
 
-    static SignMapper  signMapper;
-    static StuMapper stuMapper;
-    static MathUtil mathUtil;
+    public String getSignid() {
+        return signid;
+    }
+
+    public void setSignid(String signid) {
+        this.signid = signid;
+    }
+
+    static AnalyData analyData;
 
     @Autowired
-    public MyWebSocket(SignMapper signMapper, StuMapper stuMapper, MathUtil mathUtil){
-
-        this.signMapper = signMapper;
-        this.mathUtil= mathUtil;
-        this.stuMapper = stuMapper;
+    public MyWebSocket(AnalyData analyData){
+        this.analyData = analyData;
     }
 
     public MyWebSocket(){}
@@ -72,8 +79,6 @@ public class MyWebSocket {
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
         try {
             sendMessage("有新连接加入！当前在线人数为" + getOnlineCount());
-
-
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
@@ -88,7 +93,6 @@ public class MyWebSocket {
     public void onClose() {
         webSocketSet.remove(this);  //从set中删除
         subOnlineCount();           //在线数减1
-        flag = !flag;
         System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
 
@@ -97,47 +101,13 @@ public class MyWebSocket {
      *
      * @param message 客户端发送过来的消息*/
     @OnMessage
-    public void onMessage(String message, Session session) {
+    public void onMessage(String message, Session session) throws Exception{
         System.out.println("来自客户端的消息:" + message);
-
-        //群发消息
-        for (MyWebSocket item : webSocketSet) {
-           while (flag ){
-               try {
-//                   item.sendMessage(message);
-                   sendMessage(JSON.toJSONString(getData(message)));
-                   Thread.sleep(1000);
-               } catch (Exception e) {
-                   e.printStackTrace();
-               }
-           }
-        }
+        signid = message;
+        sendInfo(message);
     }
 
 
-    public List getData(String message){
-        List<Sign> list =  signMapper.getsignbyid(message);
-        Sign sign = list.get(0);
-        JSONArray json= JSON.parseArray(sign.getStulist());
-        List data = new ArrayList();
-        for (int i = 0; i < json.size(); i++) {
-            Map<String, String> item = new HashMap();
-//            System.out.println(json.get(i));
-            Stu studata = stuMapper.findnamebyuserid(JSON.parseObject((String)(json.get(i))).get("id").toString()).get(0);
-            item.put("name", studata.getName());
-            item.put("stuid",studata.getStuid() );
-            item.put("time",JSON.parseObject((String)(json.get(i))).get("signtime").toString() );
-            item.put("signstate",JSON.parseObject((String)(json.get(i))).get("signstate").toString());
-            item.put("signid", sign.getSignid().toString());
-//            double longitude1 = Double.parseDouble(JSON.parseObject((String)(json.get(i))).get("longitude").toString());
-//            double latitude1 =  Double.parseDouble(JSON.parseObject((String)(json.get(i))).get("latitude").toString());
-//            double longitude2 =  Double.parseDouble(sign.getLongitude());
-//            double latitude2 =  Double.parseDouble(sign.getLatitude());
-//            item.put("distance", mathUtil.getDistangce(longitude1,latitude1,longitude2,latitude2)+"");
-            data.add(item);
-        }
-        return data;
-    }
     /**
      * 发生错误时调用
      * @param session
@@ -163,7 +133,9 @@ public class MyWebSocket {
     public static void sendInfo(String message) throws IOException {
         for (MyWebSocket item : webSocketSet) {
             try {
-                item.sendMessage(message);
+               if(item.getSignid() .equals(message)){
+                   item.sendMessage(JSON.toJSONString(analyData.analyWebSocketData(message)));
+               }
             } catch (IOException e) {
                 continue;
             }

@@ -29,4 +29,8 @@ public interface SignMapper {
     int insertstusign(@Param("item") String item,@Param("signid")Integer signid);
 
 
+    @Update("update tb_sign SET stulist = #{item}  WHERE signid = #{signid}")
+    int insertsigndata(@Param("item") String item,@Param("signid")Integer signid);
+
+
 }

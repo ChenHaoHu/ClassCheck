@@ -1,5 +1,7 @@
 // pages/main/index.js
 var QR = require("../../utils/qrcode.js");
+
+var aa = "";
 var Dec = require('../../public.js');//引用封装好的加密解密js
 Page({
   data: {
@@ -10,9 +12,8 @@ Page({
     intro:"汇编课程",
     time:"2018-9-10 12:00"
   },
+ 
   onLoad: function (options) {
-   
-
     var that = this;
     that.setData({
       time:options.time,
@@ -23,16 +24,16 @@ Page({
     var initUrl = this.data.placeholder;
     var min = new Date().getTime();
     var id = options.id;
-    var con = min + "@" + id+"@signprogram"+"@"+"胡晨阳"
+    var con = min + "@" + id + "@signprogram" + "@" + "胡晨阳" + "@" + that.data.intro + "@" + that.data.time
    con = Dec.Encrypt(con);
     that.createQrCode(con, "mycanvas", size.w, size.h);
-    setInterval(function(){
+  aa =  setInterval(function(){
       var min = new Date().getTime();
+      var name = wx.getStorageSync("name")
       var id = 1034;
+    var con = min + "@" + id + "@signprogram" + "@" + name + "@" + that.data.intro + "@" + that.data.time
       con = Dec.Encrypt(con);
-      var con = min + "@" + id + "@signprogram" + "@" + "胡晨阳"
       that.createQrCode(con, "mycanvas", size.w, size.h);
-      
     },6000);
   },
 
@@ -88,5 +89,10 @@ Page({
      url: '../index/index',
    })
  },
-
+ onHide:function(){
+  clearInterval(aa);  
+  },
+   onUnload: function () {
+     clearInterval(aa);  
+  },
 })

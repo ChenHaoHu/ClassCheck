@@ -1,10 +1,41 @@
+<view class="page__hd">
+  <view class="page__title">创建签到</view>
+  <view class="page__desc">发起人编号请联系管理员</view>
+</view>
+<view class="weui-cells__title">发起人编号</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="1000" bindinput='changinput' id='id' />
+    </view>
+  </view>
+</view>
 
+<view class="weui-cells__title">发起人密匙</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="" bindinput='changinput' type='password' id='pass' />
+    </view>
+  </view>
+</view>
 
-<view class='title'>填写签到信息</view>
-<i-panel  class = 'main'>
-    <i-input value="{{ tips }}" title="备注" autofocus placeholder="微信小程序课程 3-5节 5A507" bind:change='changinput' id='tips' />
-    <i-input value="{{ time }}" type="number" title="有效时间" placeholder="分钟为单位"  bind:change='changinput' id='time' />
-        <i-input value="{{ pass }}" type="number" title="密匙" placeholder=""  bind:change='changinput'   id='pass' />
-</i-panel>
+<view class="weui-cells__title">发起内容</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="微信小程序课程" bindinput='changinput'  id='content'/>
+    </view>
+  </view>
+</view>
 
-<i-button bind:click="buildsign" type="primary" size="default" shape="circle">创建签到</i-button>
+<view class="weui-cells__title">有效时间</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="分钟为单位" bindinput='changinput' type='number' id='time' />
+    </view>
+  </view>
+</view>
+
+<div bindtap="tobuild"  size="default"  class='go'>我要创建</div>

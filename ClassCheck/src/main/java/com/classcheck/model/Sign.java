@@ -2,6 +2,7 @@ package com.classcheck.model;
 
 import com.alibaba.fastjson.JSON;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
  * @Date: 18-8-27 15:55
  * @Description:
  */
-public class Sign {
+public class Sign  implements Serializable {
     private Integer signid;
     private Integer adminid;
     private String createtime;
@@ -18,7 +19,8 @@ public class Sign {
     private String stulist;
     private String content;
 
-
+    public Sign() {
+    }
 
     public Sign(Integer signid, Integer adminid, String createtime, String time, String stulist, String content) {
         this.signid = signid;

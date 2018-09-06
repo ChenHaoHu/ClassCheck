@@ -11,17 +11,29 @@ import java.io.Serializable;
 public class SignItem  {
     //签到的学生id
     private Integer id;
-
+    //签到类型
+    //0---签到  1--请假
+    private  Integer type;
+    //二维码来源
     private String codetype;
-
+    //请假人姓名
+    private  String restname;
+    //请假人学号
+    private  String restid;
+    //请假原因
+    private String reason;
     //签到时间
     private String signtime;
     //签到状态
     private String signstate;
 
-    public SignItem(Integer id, String codetype, String signtime, String signstate) {
+    public SignItem(Integer id, Integer type, String codetype, String restname, String restid, String reason, String signtime, String signstate) {
         this.id = id;
+        this.type = type;
         this.codetype = codetype;
+        this.restname = restname;
+        this.restid = restid;
+        this.reason = reason;
         this.signtime = signtime;
         this.signstate = signstate;
     }
@@ -34,13 +46,44 @@ public class SignItem  {
         this.id = id;
     }
 
+    public Integer getType() {
+        return type;
+    }
 
-    public String getLatitude() {
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getCodetype() {
         return codetype;
     }
 
-    public void setLatitude(String codetype) {
+    public void setCodetype(String codetype) {
         this.codetype = codetype;
+    }
+
+    public String getRestname() {
+        return restname;
+    }
+
+    public void setRestname(String restname) {
+        this.restname = restname;
+    }
+
+    public String getRestid() {
+        return restid;
+    }
+
+    public void setRestid(String restid) {
+        this.restid = restid;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getSigntime() {

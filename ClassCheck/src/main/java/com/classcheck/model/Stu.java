@@ -1,13 +1,13 @@
 package com.classcheck.model;
 
-import java.util.List;
+import java.io.Serializable;
 
 /**
  * @Auther: 简单DI年华
  * @Date: 18-8-27 15:15
  * @Description:
  */
-public class Stu {
+public class Stu  implements Serializable {
     private Integer userid;
     //姓名
     private String name;
@@ -19,6 +19,10 @@ public class Stu {
     private String college;
 
     private String creattime;
+
+    public Stu() {
+
+    }
 
     public Stu(Integer userid, String name, String stuid, String classname, String college, String creattime) {
         this.userid = userid;
@@ -76,4 +80,6 @@ public class Stu {
     public void setCreattime(String creattime) {
         this.creattime = creattime;
     }
+
+
 }

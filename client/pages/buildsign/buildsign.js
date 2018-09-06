@@ -1,90 +1,77 @@
  var app = getApp();
-var api = require('../../api.js');
-Page({
-  data: {
-    tips:"",
-    time:"",
-    num:"",
-    pass:""
-  },
-  buildsign:function(){
- 
-   if(this.data.pass == "123321"){
-     wx.showLoading({
-       title: '创建中',
-     })
+ var api = require('../../api.js');
+ Page({
+   data: {
+     id: "",
+     time: "",
+     content: "",
+     pass: ""
+   },
+
+   changinput: function(e) {
      var that = this;
-     wx.getLocation({
-       type: 'wgs84',
-       success: function (res) {
-         var latitude = res.latitude
-         var longitude = res.longitude
-         var speed = res.speed
-         var accuracy = res.accuracy
-         console.log(res)
-         wx.request({
-           url: api.buildsign,
-           data: {
-             id: 1001,
-             time: that.data.time,
-             tips: that.data.tips,
-             longitude: longitude,
-             latitude: latitude
-           },
-           success: function (e) {
-             wx.hideLoading()
-             console.log(e.data)
-             that.setData({
-               num: e.data.data.signid
-             });
-             wx.showModal({
-               title: '提示',
-               content: '此签到信息PASS码为' + e.data.data.signid,
-               success: function () {
-                 wx.redirectTo({
-                   url: '../signdata/signdata?id=' + e.data.data.signid,
-                 })
-               },
-               fail: function () {
-
-               }
+     if (e.currentTarget.id == "content") {
+       that.setData({
+         content: e.detail.value
+       });
+     }
+     if (e.currentTarget.id == "id") {
+       that.setData({
+         id: e.detail.value
+       });
+     }
+     if (e.currentTarget.id == "time") {
+       that.setData({
+         time: e.detail.value
+       });
+     }
+     if (e.currentTarget.id == "pass") {
+       that.setData({
+         pass: e.detail.value
+       });
+     }
+   },
+   tobuild: function() {
+     var that = this
+     if (that.data.id.length == 0 || that.data.time.length == 0 || that.data.content.length == 0 || that.data.pass.length == 0) {
+       wx.showModal({
+         title: '提示',
+         content: '请输入完整',
+       })
+     } else {
+       wx.request({
+         url: api.buildsign,
+         data: {
+           id: that.data.id,
+           time: that.data.time,
+           tips: that.data.content,
+           pass: that.data.pass
+         },
+         success:function(res){
+            console.log(res.data)
+           if (res.data.data == "密匙错误"){
+             wx.showToast({
+               title: '密匙错误',
+               icon:'none'
              })
+           }else{
+             wx.showToast({
+               title: '创建成功',
+               icon: 'none'
+             })
+             var data = res.data.data
+             var signlist = wx.getStorageSync("signlist");
+             if (signlist == "") {
+               signlist = []
+             }
+             signlist.push("编号:" + data.signid)
 
+             wx.navigateTo({
+               url: '../qrcode/qrcode?id=' + data.signid + "&intro=" + data.content + "&time=" + data.createtime,
+             })
            }
-         })
-       },
-       fail: function (res) {
-         wx.showModal({
-           title: '提示',
-           content: '获取地理位置信息失败,无法创建',
-         })
-       }
-     })
-   }else{
-     wx.showModal({
-       title: '提示',
-       content: '密匙错误',
-     })
+         }
+       })
+     }
    }
-  },
-  changinput:function(e){
-    var that = this;
-    console.log(e.detail.detail.value)
-    console.log(e.currentTarget.id)
-    if (e.currentTarget.id == "tips"){
-      that.setData({
-        tips: e.detail.detail.value
-      });
-    }
-    if (e.currentTarget.id == "time") {
-      that.setData({
-        time: e.detail.detail.value
-      });
-    }
-    if (e.currentTarget.id == "pass") {
-      that.setData({
-        pass: e.detail.detail.value
-      });
-    }
-  }
-});
+ });

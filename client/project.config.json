@@ -33,19 +33,30 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
-					"name": "单页编译",
+					"name": "请假页面测试",
 					"pathName": "pages/rest/rest",
-					"query": "signid=1021"
+					"query": "signid=1032&codetype=祖玛"
 				},
 				{
 					"id": 1,
 					"name": "二维码页面测试",
 					"pathName": "pages/qrcode/qrcode",
-					"query": "time=2018.9.2 12：00&intro=汇编语言课程&id=1021"
+					"query": "time=2018.9.2 12：00&intro=汇编语言课程&id=1032"
+				},
+				{
+					"id": -1,
+					"name": "实时页面测试",
+					"pathName": "pages/signdata/signdata",
+					"query": "id=1034"
+				},
+				{
+					"id": -1,
+					"name": "创建测试",
+					"pathName": "pages/buildsign/buildsign"
 				}
 			]
 		}

@@ -30,4 +30,4 @@
   </view>
 </view>
 
-<div bindtap="torest"  size="default"  class='go'>我要创建</div>
+<div bindtap="torest"  size="default"  class='go'>帮助请假</div>

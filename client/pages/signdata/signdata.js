@@ -9,9 +9,6 @@ Page({
     data: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
     console.log(options)
     var signid = options.id
@@ -21,6 +18,7 @@ Page({
     })
     wx.onSocketOpen(function(res) {
       console.log('WebSocket连接已打开！')
+      console.log(signid)
       wx.sendSocketMessage({
         data: signid
       })
