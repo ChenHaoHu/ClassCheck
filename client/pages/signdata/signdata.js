@@ -1,17 +1,22 @@
 var app = getApp();
 var api = require('../../api.js');
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    data: []
+    data: [],
+    classname:"",
+    signid:"",
+    signnum:10,
+    restnum:10
   },
 
   onLoad: function(options) {
     console.log(options)
-    var signid = options.id
+    var signid = options.signid
+    var classname = options.class;
+    this.setData({
+      signid: signid,
+      classname: classname
+    });
     var that = this;
     wx.connectSocket({
       url: api.signdata,
@@ -25,8 +30,15 @@ Page({
       wx.onSocketMessage(function(res) {
         console.log('收到服务器内容：' + res.data)
         if (res.data.length != 15) {
+          var temp = JSON.parse(res.data).data;
+          var data = [];
+          for(var i = 0; i < temp.length; i++){
+            if (temp[i].class == classname){
+              data.push(temp[i]);
+            }
+          }
           that.setData({
-            data: JSON.parse(res.data)
+            data: data
           })
         }
       })

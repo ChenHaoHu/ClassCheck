@@ -36,14 +36,31 @@ public class AnalyDataImpl implements AnalyData {
 
 
     @Override
-    public List analyWebSocketData(String signid) {
+    public Map analyWebSocketData(String signid) {
+        List all = getAllData(signid);
+        List classname = analyList(all);
 
-            return null;
-        }
+        Map map = new HashMap();
+        map.put("data",all);
+        map.put("classnames",classname);
+        return map;
+    }
 
+    @Override
+    public List getClassData(String signid) {
+        List all = getAllData(signid);
+        List classname = analyList(all);
+        return classname;
+    }
+
+    /**
+     * 获取所有详细信息
+     * @param signid
+     * @return
+     */
     List getAllData(String signid) {
         //基本数据的集合
-        List list = new ArrayList();
+        List<Map> list = new ArrayList();
         //获取报名信息
         Sign sign = signRedisTemplate.opsForValue().get(signid + "");
         if (sign == null) {
@@ -78,6 +95,8 @@ public class AnalyDataImpl implements AnalyData {
                 Map<String, String> map = new HashMap<>();
                 Stu studata = stuMapper.findnamebyuserid(JSON.parseObject((String) (json.get(i))).get("id").toString()).get(0);
                 map.put("name", studata.getName());
+                map.put("college", studata.getCollege());
+                map.put("class", studata.getClassname());
                 map.put("stuid", studata.getStuid());
                 map.put("type", JSON.parseObject((String) (json.get(i))).get("type").toString());
                 map.put("codetype", JSON.parseObject((String) (json.get(i))).get("codetype").toString());
@@ -93,14 +112,75 @@ public class AnalyDataImpl implements AnalyData {
         }
     }
 
+    /**
+     * 获取班级名 不重复
+     * @param data
+     * @return
+     */
+    List analyList(List<Map> data){
+        //返回数据
+        List<Map<String,Map>> classnames = new ArrayList();
+        //是否存在的标识
+        boolean flag = true;
+        //拿出参数里面的值
+        for (int i = 0; i < data.size(); i++) {
+            //获得他的每个元素
+            Map<String, String> map = data.get(i);
+            //获取元素里面的class
+            String classname = map.get("class");
+            //获取他的类型
+            String type = map.get("type");
+            //初始化
+            flag = true;
+            for (int j = 0; j < classnames.size(); j++) {
 
-    List analyLit(List data){
-
-
-
-
-
-        return null;
+                if(classnames.size()>0){
+                    Map<String,Map> dd = classnames.get(j);
+                    if (dd.get("class").get("data").equals(classname)) {
+                        Map<String,Integer> mm = dd.get("data");
+                        classnames.remove(j);
+                        Map cl = new HashMap();
+                        Map jj = new HashMap();
+                        jj.put("data",classname);
+                        cl.put("class",jj);
+                        // cl.put("number", (num + 1)+"");
+                        if(type.equals("0")){
+                            int num =mm.get("sign");
+                            num = num+1;
+                            mm.put("sign",num);
+                            cl.put("data", mm);
+                        }else{
+                            int num =mm.get("rest");
+                            num = num+1;
+                            mm.put("rest",num);
+                            cl.put("data", mm);
+                        }
+                        classnames.add(cl);
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            if(flag == true){
+                Map cl = new HashMap();
+                Map jj = new HashMap();
+                jj.put("data",classname);
+                cl.put("class",jj);
+                if(type.equals("0")){
+                    Map<String,Integer> mm = new HashMap();
+                    mm.put("sign",1);
+                    mm.put("rest",0);
+                    cl.put("data", mm);
+                }else{
+                    Map<String,Integer> mm = new HashMap();
+                    mm.put("sign",0);
+                    mm.put("rest",1);
+                    cl.put("data", mm);
+                }
+                classnames.add(cl);
+            }
+        }
+        return classnames;
     }
 
 

@@ -6,7 +6,7 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="1000" bindinput='changinput' id='id' />
+      <input class="weui-input" placeholder="填写你本人身份编号" bindinput='changinput' id='id' />
     </view>
   </view>
 </view>
@@ -15,7 +15,7 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="" bindinput='changinput' type='password' id='pass' />
+      <input class="weui-input" placeholder="填写密匙" bindinput='changinput' type='password' id='pass' />
     </view>
   </view>
 </view>
@@ -24,7 +24,7 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="微信小程序课程" bindinput='changinput'  id='content'/>
+      <input class="weui-input" placeholder="填写课程内容地点" bindinput='changinput'  id='content'/>
     </view>
   </view>
 </view>

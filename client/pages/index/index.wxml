@@ -16,3 +16,4 @@
 
 <div bindtap="tobuild"  size="default"  class='go'>我要创建</div>
 
+<div bindtap="toshare"  size="default"  class='go'>分享签到码</div>

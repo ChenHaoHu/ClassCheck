@@ -1,0 +1,29 @@
+.list{
+  width: 98%;
+  margin-left: 1%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.item{
+  width: 42%;
+  height: 300rpx;
+  margin-bottom: 40rpx;
+  color: white;
+ background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.name{
+  font-weight: 300;
+  font-size: 40rpx;
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+}
+
+.data{
+  margin-top: 60rpx;
+  margin-left: 20rpx;
+}
+

@@ -3,6 +3,7 @@ package com.classcheck.service.analydata;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: 简单DI年华
@@ -13,6 +14,8 @@ import java.util.List;
 @Service
 public interface AnalyData {
 
-    List analyWebSocketData(String signid);
+    Map analyWebSocketData(String signid);
+
+    List getClassData(String signid);
 
 }

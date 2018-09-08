@@ -1,15 +1,15 @@
 <view class="list">
-  <view>个人信息</view>
-  <view>使用说明</view>
+  <view bindtap='userdata'>个人信息</view>
+  <view bindtap='usedata'>使用说明</view>
   <view class='feedback'>
     <button open-type='feedback'>建议反馈</button>
   </view>
     <view class='kefu'>
-    <button open-type='feedback'>联系客服</button>
+    <button open-type='contact'>联系客服</button>
   </view>
-  <view>免责声明</view>
-  <view>我要打赏</view>
-  <view>关于我们</view>
+  <view bindtap='resp'>免责声明</view>
+  <view bindtap='money'>我要打赏</view>
+  <view bindtap='about'>关于我们</view>
 </view>
 
 

@@ -19,7 +19,7 @@
    padding: 0rpx;
    text-align: left;
    font-size: 30rpx;
-   background-color: #fff;
+   background-color: #f8f8f8;
    color: rgb(105, 102, 102);
 }
 
@@ -32,6 +32,6 @@
    padding: 0rpx;
    text-align: left;
    font-size: 30rpx;
-   background-color: #fff;
+   background-color: #f8f8f8;
    color: rgb(105, 102, 102);
 }

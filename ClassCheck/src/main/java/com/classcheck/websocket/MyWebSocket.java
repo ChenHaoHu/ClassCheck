@@ -131,11 +131,14 @@ public class MyWebSocket {
      * 群发自定义消息
      * */
     public static void sendInfo(String message) throws IOException {
+
+
         for (MyWebSocket item : webSocketSet) {
             try {
-               if(item.getSignid() .equals(message)){
-                   item.sendMessage(JSON.toJSONString(analyData.analyWebSocketData(message)));
-               }
+
+                  if(item.getSignid() .equals(message)){
+                      item.sendMessage(JSON.toJSONString(analyData.analyWebSocketData(message)));
+              }
             } catch (IOException e) {
                 continue;
             }

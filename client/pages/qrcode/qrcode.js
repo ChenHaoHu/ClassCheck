@@ -10,12 +10,14 @@ Page({
     imagePath: '',
     placeholder: '1024,2017-9-10',
     intro:"汇编课程",
-    time:"2018-9-10 12:00"
+    time:"2018-9-10 12:00",
+    signid:""
   },
  
   onLoad: function (options) {
     var that = this;
     that.setData({
+      signid: options.id,
       time:options.time,
       intro:options.intro
     });
@@ -24,13 +26,15 @@ Page({
     var initUrl = this.data.placeholder;
     var min = new Date().getTime();
     var id = options.id;
-    var con = min + "@" + id + "@signprogram" + "@" + "胡晨阳" + "@" + that.data.intro + "@" + that.data.time
+    console.log(id)
+    var name = wx.getStorageSync("name")
+    var con = min + "@" + id + "@signprogram" + "@" +name+ "@" + that.data.intro + "@" + that.data.time
    con = Dec.Encrypt(con);
     that.createQrCode(con, "mycanvas", size.w, size.h);
   aa =  setInterval(function(){
       var min = new Date().getTime();
       var name = wx.getStorageSync("name")
-      var id = 1034;
+    var id = options.id;
     var con = min + "@" + id + "@signprogram" + "@" + name + "@" + that.data.intro + "@" + that.data.time
       con = Dec.Encrypt(con);
       that.createQrCode(con, "mycanvas", size.w, size.h);

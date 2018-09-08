@@ -1,0 +1,17 @@
+<view class="page__hd">
+  <view class="page__title">签到数据</view>
+  <view class="page__desc">编号 # {{signid}} {{username}}</view>
+  <view class="but">数据为动态数据</view>
+</view>
+
+
+
+  <view class="list">
+    <view class='item' wx:for="{{classdata}}" wx:key="" id='{{item.class.data}}' bindtap='lookmore'>
+      <view class='name'>{{item.class.data}}</view>
+     <view class="data">
+      <view class='sign'>签到人数：{{item.data.sign}}人</view>
+      <view class='rest'>请假人数：{{item.data.rest}}人</view>
+     </view>
+    </view>
+  </view>

@@ -32,8 +32,12 @@
      }
    },
    tobuild: function() {
+     wx.showLoading({
+       title: '创建中',
+     })
      var that = this
      if (that.data.id.length == 0 || that.data.time.length == 0 || that.data.content.length == 0 || that.data.pass.length == 0) {
+       wx.hideLoading();
        wx.showModal({
          title: '提示',
          content: '请输入完整',
@@ -47,28 +51,37 @@
            tips: that.data.content,
            pass: that.data.pass
          },
-         success:function(res){
-            console.log(res.data)
-           if (res.data.data == "密匙错误"){
+         success: function(res) {
+           console.log(res.data)
+           wx.hideLoading();
+           if (res.data.data == "密匙错误") {
              wx.showToast({
                title: '密匙错误',
-               icon:'none'
-             })
-           }else{
-             wx.showToast({
-               title: '创建成功',
                icon: 'none'
              })
-             var data = res.data.data
-             var signlist = wx.getStorageSync("signlist");
-             if (signlist == "") {
-               signlist = []
-             }
-             signlist.push("编号:" + data.signid)
+           } else {
+             wx.hideLoading();
+             wx.showModal({
+               title: '提示',
+               content: '创建成功',
+               showCancel: false,
+               success: function(e) {
+                 var data = res.data.data
+                 var signlist = wx.getStorageSync("signlist");
+                 if (signlist == "") {
+                   signlist = []
+                 }
+                 signlist.push("编号:" + data.signid)
 
-             wx.navigateTo({
-               url: '../qrcode/qrcode?id=' + data.signid + "&intro=" + data.content + "&time=" + data.createtime,
+                 wx.setStorageSync("signlist", signlist)
+                 
+                 console.log("编号:" + data.signid)
+                 wx.navigateTo({
+                   url: '../qrcode/qrcode?id=' + data.signid + "&intro=" + data.content + "&time=" + data.createtime,
+                 })
+               }
              })
+
            }
          }
        })

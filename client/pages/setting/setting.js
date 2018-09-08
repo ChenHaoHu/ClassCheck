@@ -7,64 +7,36 @@ Page({
   data: {
 
   },
-  go: function() {
-    wx.navigateTo({
-      url: '../us/us?id=' + 123,
+  userdata:function(){
+    var name = wx.getStorageSync("name")
+    var userid = wx.getStorageSync("userid")
+    wx.showModal({
+      title: '个人信息',
+      content: name,
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    
+  usedata:function(){
+    wx.showModal({
+      title: '使用说明',
+      content: '自己意会',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+  resp: function () {
+    wx.showModal({
+      title: '免责声明',
+      content: '我不负责',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
+  money:function(){
+    wx.showModal({
+      title: '打赏',
+      content: '还在与第三方协商',
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  about: function () {
+    wx.showModal({
+      title: '关于我们',
+      content: '由指尖改变世界编写,版权所有 v2.0.1',
+    })
   }
 })

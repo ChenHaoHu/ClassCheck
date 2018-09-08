@@ -16,7 +16,7 @@ import java.util.List;
 @Component(value = "stuMapper")
 public interface StuMapper {
 
-    @Insert("insert into tb_stu(name,stuid,class,college,creattime) values (#{stu.name},#{stu.stuid},#{stu.classname},#{stu.college},#{stu.creattime}) ")
+    @Insert("insert into tb_stu(name,stuid,classname,college,creattime) values (#{stu.name},#{stu.stuid},#{stu.classname},#{stu.college},#{stu.creattime}) ")
     @Options(useGeneratedKeys = true, keyProperty = "stu.userid")
     void insertuser(@Param("stu") Stu stu);
 

@@ -41,7 +41,9 @@ Page({
           console.log(scandata)
           var data = scandata.split("@")
           if (data[2] == "signprogram") {
-            if (new Date().getTime() - data[1] > 16000) {
+            console.log(new Date().getTime())
+            console.log(data[0])
+            if (new Date().getTime() - data[0] < 6000) {
               console.log(data)
               wx.showModal({
                 title: '详细',
@@ -70,9 +72,9 @@ Page({
                         signlist.push("编号:" + data[1])
                         console.log(signlist)
                         wx.setStorageSync("signlist", signlist)
-                        wx.showToast({
+                        wx.showModal({
                           title: res.data.data,
-                          success: function() {
+                          success: function(res) {
                             wx.showModal({
                               title: '分享',
                               content: '是否愿意分享本次二维码给他人',
@@ -100,6 +102,7 @@ Page({
                               title: '分享',
                               content: '是否愿意分享本次二维码给他人',
                               success: function(res) {
+                                
                                 if (res.confirm) {
                                   wx.navigateTo({
                                     url: '../qrcode/qrcode?id=' + data[1] + "&intro=" + data[5] + "&time=" + data[4],
@@ -171,23 +174,31 @@ Page({
           var data = scandata.split("@")
           wx.showModal({
             title: '提示',
-            content: data[3] + data[4],
-          })
-
-          console.log(data[0] - new Date().getTime())
-          console.log(data)
-          if (data[2] == "signprogram") {
-            if (new Date().getTime() - data[1] < 16000) {
-              wx.navigateTo({
-                url: '../rest/rest?signid=' + data[1] + "&codetype=" + data[3],
-              })
-            } else {
-              wx.showModal({
-                title: '提示',
-                content: '扫描的二维码不正确或已经失效，请重新扫描',
-              })
+            content: data[5] + "  " + data[4],
+            showCancel:false,
+            success:function(e){
+              console.log(data[0] - new Date().getTime())
+              console.log(data)
+              if (data[2] == "signprogram") {
+                if (new Date().getTime() - data[0] < 6000) {
+                  var signlist = wx.getStorageSync("signlist");
+                  if (signlist == "") {
+                    signlist = []
+                  }
+                  signlist.push("编号:" + data[1])
+                  wx.setStorageSync("signlist", signlist)
+                  wx.navigateTo({
+                    url: '../rest/rest?signid=' + data[1] + "&codetype=" + data[3],
+                  })
+                } else {
+                  wx.showModal({
+                    title: '提示',
+                    content: '扫描的二维码不正确或已经失效，请重新扫描',
+                  })
+                }
+              }
             }
-          }
+          })
         }
       })
     } else {
@@ -212,7 +223,7 @@ Page({
           console.log(temp[res.tapIndex])
           var signid = temp[res.tapIndex].split(":")[1]
           wx.navigateTo({
-            url: '../signdata/signdata?id='+signid,
+            url: '../showbord/showbord?signid='+signid,
           })
 
         }
@@ -223,5 +234,35 @@ Page({
     wx.navigateTo({
       url: '../buildsign/buildsign',
     })
+  },
+  toshare:function(){
+    var temp = wx.getStorageSync("signlist")
+    console.log(temp)
+    if (temp == "") {
+      wx.showModal({
+        title: '提示',
+        content: '您还没有任何签到',
+      })
+    } else {
+      wx.showActionSheet({
+        itemList: temp,
+        success: function (res) {
+          console.log(temp[res.tapIndex])
+          var signid = temp[res.tapIndex].split(":")[1]
+          wx.request({
+            url: api.findsign,
+            data:{
+              signid: signid
+            },
+            success:function(res){
+              console.log(res)
+              wx.navigateTo({
+                url: '../qrcode/qrcode?id=' + signid + "&intro=" + res.data.data.content + "&time=" + res.data.data.createtime,
+              })
+            }
+          })
+        }
+      })
+    }
   }
 })

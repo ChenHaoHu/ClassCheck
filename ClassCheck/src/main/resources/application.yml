@@ -1,14 +1,14 @@
-wxapp:
-#  appid: wx4f4a31c69f79cd6e
-#  appsecret: bd2dcac539bc006fcedbb96d88c3094f
-  appid: wx955d8d61806b3390
-  appsecret: ccdc310b68b14908fb028acd97f07b31
+#wxapp:
+##  appid: wx4f4a31c69f79cd6e
+##  appsecret: bd2dcac539bc006fcedbb96d88c3094f
+#  appid: wx955d8d61806b3390
+#  appsecret: ccdc310b68b14908fb028acd97f07b31
 
 
 spring:
   datasource:
-    username: root
-    password: root
+    username: classcheck
+    password: KYiRN7CkeHGeKJZb
     url: jdbc:mysql://127.0.0.1:3306/classcheck?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -36,16 +36,16 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   redis:
     database: 9
-    host: 119.23.17.2
+    host: 127.0.0.1
     port: 6379
 
-#server:
-#  port: 443
-#  ssl:
-#    key-store: classpath:214955576050011.pfx
-#    key-store-password: 214955576050011
-#    key-store-type: PKCS12
 server:
-  port: 8080
+  port: 443
+  ssl:
+    key-store: classpath:214955576050011.pfx
+    key-store-password: 214955576050011
+    key-store-type: PKCS12
+#server:
+#  port: 8080
   tomcat:
    max-http-post-size: 104857600

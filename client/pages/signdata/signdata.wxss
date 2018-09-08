@@ -1,21 +1,39 @@
-.main{
-  margin-top: 80rpx;
-  margin-bottom: 80rpx;
-}
-
-.title{
-  text-align: center;
-  font-size: 50rpx;
-  margin-top: 70rpx;
-  margin-bottom: 30rpx;
+.head{
+  padding-bottom: 10rpx;
 }
 
 .item{
   width: 90%;
   margin-left: 5%;
-  display: flex;
-  justify-content: space-between;
   font-size: 30rpx;
   margin-top: 50rpx;
-  border-bottom: 1rpx solid rebeccapurple;
+  border-bottom: 1rpx solid white;
+  display: flex;
+  flex-direction: row;
+}
+
+.tag{
+  width: 80rpx;
+  background-color: red;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: white;
+}
+
+.signtag{
+  background-color: #2d8cf0;
+}
+
+
+.text{
+  width: 600rpx;
+  text-align: justify;
+  margin-left: 10rpx;
+}
+
+
+.state{
+  margin-right: 40rpx;
+  width: 100rpx;
 }

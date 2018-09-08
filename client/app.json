@@ -1,12 +1,13 @@
 {
   "pages": [
-      "pages/index/index",
+    "pages/index/index",
     "pages/rest/rest",
     "pages/setting/setting",
     "pages/qrcode/qrcode",
     "pages/signdata/signdata",
     "pages/buildsign/buildsign",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/showbord/showbord"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,12 +1,23 @@
-<view class='title'>
-  查看签到信息</view>
-<scroll-view scroll-y style='height:1000rpx;'>
-  <block wx:for="{{data}}" wx:key="">
-    <view class='item rest' wx:if="{{item.type == 1}}">
-      {{item.name}}:{{item.restname}}因为{{item.reason}}在{{item.time}}扫{{item.codetype}}的二维码{{item.signstate}}
-    </view>
-    <view class='item sign' wx:if="{{item.type == 0}}">
-      {{item.name}}在{{item.time}}扫{{item.codetype}}的二维码{{item.signstate}}
-    </view>
+<view class="page__hd head">
+  <view class="page__title">{{class}}签到信息</view>
+  <view class="page__desc">编号: {{signid}}</view>
+  <view class="page__desc">班级: {{classname}}</view>
+  <view class="page__desc">签到人数: {{signnum}}人</view>
+  <view class="page__desc">请假人数: {{restnum}}人</view>
+</view>
+<scroll-view scroll-y style='height:800rpx;'>
+  <block wx:for="{{data}}" wx:key="" wx:if="{{item.type == 1}}">
+  <view class="item">
+    <view class="tag">假</view>
+    <view class='text'>{{item.name}}({{item.stuid}}):{{item.restname}}({{item.restid}})因为{{item.reason}}扫{{item.codetype}}的二维码{{item.signstate}}</view>
+  </view>
   </block>
+
+  <block wx:for="{{data}}" wx:key="" wx:if="{{item.type == 0}}" >
+  <view class="item">
+    <view class="tag signtag">签</view>
+    <view class='text'>{{item.name}}({{item.stuid}})扫{{item.codetype}}的二维码{{item.signstate}}</view>
+  </view>
+  </block>
+
 </scroll-view>

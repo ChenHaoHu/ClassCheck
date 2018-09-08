@@ -15,6 +15,7 @@ import com.classcheck.service.math.MathUtil;
 import com.classcheck.service.radis.SignDataToDataBase;
 import com.classcheck.service.time.TimeUtil;
 import com.classcheck.websocket.MyWebSocket;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,14 @@ public class SignController {
     @Autowired
     SignDataToDataBase signDataToDataBase;
 
+
+    @RequestMapping("/sign/class")
+    public ResponseEntity getClassnameList(@Param("signid") String signid){
+        List list = analyData.getClassData(signid);
+        return new ResponseEntity(RespCode.SUCCESS,list);
+    }
+
+
     /**
      * @param signid
      * @return
@@ -56,58 +65,9 @@ public class SignController {
      */
     @RequestMapping("/sign/detail")
     public ResponseEntity getdetail(String signid) {
-       List list = new ArrayList();
-        //获取报名信息
-       Sign sign = signRedisTemplate.opsForValue().get(signid+"");
-       if(sign == null){
-           List<Sign> signs = signMapper.getsignbyid(signid);
-           if(signs.size() == 0){
-               return new ResponseEntity(RespCode.SUCCESS,"没有此签到项目");
-           }else{
-               Sign data = signs.get(0);
-               JSONArray json= JSON.parseArray(data.getStulist());
-               for (int i = 0; i < json.size(); i++) {
-                   Map<String,String> map = new HashMap<>();
-                   Stu studata = stuMapper.findnamebyuserid(JSON.parseObject((String)(json.get(i))).get("id").toString()).get(0);
-                   map.put("name", studata.getName());
-                   map.put("college", studata.getCollege());
-                   map.put("class", studata.getClassname());
-                   map.put("stuid", studata.getStuid());
-                   map.put("type",JSON.parseObject((String)(json.get(i))).get("type").toString());
-                   map.put("codetype",JSON.parseObject((String)(json.get(i))).get("codetype").toString());
-                   map.put("restname",JSON.parseObject((String)(json.get(i))).get("restname").toString());
-                   map.put("restid",JSON.parseObject((String)(json.get(i))).get("restid").toString());
-                   map.put("reason",JSON.parseObject((String)(json.get(i))).get("reason").toString());
-                   map.put("time",JSON.parseObject((String)(json.get(i))).get("signtime").toString() );
-                   map.put("signstate",JSON.parseObject((String)(json.get(i))).get("signstate").toString());
-                   map.put("signid", sign.getSignid().toString());
-                   list.add(map);
-               }
-               signDataToDataBase.run(Integer.parseInt(signid));
-               return new ResponseEntity(RespCode.SUCCESS,list);
-           }
-       }else {
-           JSONArray json= JSON.parseArray(sign.getStulist());
-           for (int i = 0; i < json.size(); i++) {
-               Map<String,String> map = new HashMap<>();
-               Stu studata = stuMapper.findnamebyuserid(JSON.parseObject((String)(json.get(i))).get("id").toString()).get(0);
-               map.put("name", studata.getName());
-               map.put("college", studata.getCollege());
-               map.put("class", studata.getClassname());
-               map.put("stuid", studata.getStuid());
-               map.put("type",JSON.parseObject((String)(json.get(i))).get("type").toString());
-               map.put("codetype",JSON.parseObject((String)(json.get(i))).get("codetype").toString());
-               map.put("restname",JSON.parseObject((String)(json.get(i))).get("restname").toString());
-               map.put("restid",JSON.parseObject((String)(json.get(i))).get("restid").toString());
-               map.put("reason",JSON.parseObject((String)(json.get(i))).get("reason").toString());
-               map.put("time",JSON.parseObject((String)(json.get(i))).get("signtime").toString() );
-               map.put("signstate",JSON.parseObject((String)(json.get(i))).get("signstate").toString());
-               map.put("signid", sign.getSignid().toString());
-               list.add(map);
-           }
+            Map data = analyData.analyWebSocketData(signid);
            signDataToDataBase.run(Integer.parseInt(signid));
-           return new ResponseEntity(RespCode.SUCCESS,list);
-       }
+           return new ResponseEntity(RespCode.SUCCESS,data);
     }
 
 
