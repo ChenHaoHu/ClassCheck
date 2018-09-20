@@ -1,0 +1,15 @@
+<view class="page__hd head">
+  <view class="page__title">参与的签到列表</view>
+  <view class="page__desc">点击查看</view>
+</view>
+
+<scroll-view style='height:1000rpx;' scroll-y>
+
+<block wx:for="{{data}}" wx:key="">
+<view class='item'>
+  <view class='name'>#{{item.id}}</view>
+  <view class='time'>{{item.time}}</view>
+    <view class='con'>{{item.con}}</view>
+</view>
+</block>
+</scroll-view>

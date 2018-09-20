@@ -1,6 +1,8 @@
 {
   "pages": [
+
     "pages/index/index",
+    "pages/signlist/signlist",
     "pages/rest/rest",
     "pages/setting/setting",
     "pages/qrcode/qrcode",

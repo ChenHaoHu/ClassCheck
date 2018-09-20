@@ -46,6 +46,7 @@ public class AnalyDataImpl implements AnalyData {
         return map;
     }
 
+
     @Override
     public List getClassData(String signid) {
         List all = getAllData(signid);
@@ -180,6 +181,15 @@ public class AnalyDataImpl implements AnalyData {
                 classnames.add(cl);
             }
         }
+
+        for (int i = 0; i < classnames.size(); i++) {
+            Map<String,Map> map = classnames.get(i);
+            Map map1 = map.get("class");
+            String str = map1.get("data").toString();
+            map1.put("number",stuMapper.findClassnumbyclassname(str));
+            map.put("class",map1);
+        }
+
         return classnames;
     }
 

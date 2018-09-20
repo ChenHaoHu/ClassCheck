@@ -2,11 +2,14 @@ package com.classcheck.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.classcheck.common.config.SignRedisConfig;
 import com.classcheck.common.response.RespCode;
 import com.classcheck.common.response.ResponseEntity;
+import com.classcheck.mapper.AdminMapper;
 import com.classcheck.mapper.SignMapper;
 import com.classcheck.mapper.StuMapper;
+import com.classcheck.model.Admin;
 import com.classcheck.model.Sign;
 import com.classcheck.model.SignItem;
 import com.classcheck.model.Stu;
@@ -46,9 +49,46 @@ public class SignController {
     @Autowired
     MathUtil mathUtil;
     @Autowired
+    AdminMapper adminMapper;
+    @Autowired
     RedisTemplate<Object, Sign> signRedisTemplate;
     @Autowired
     SignDataToDataBase signDataToDataBase;
+
+
+    /**
+     * 获取此签到码下的未签到成员
+     * @param signid
+     * @return
+     */
+    @RequestMapping("/sign/other")
+    public ResponseEntity getOtheStu( String signid,
+                                    String classname){
+
+       List<Sign> list = signMapper.getsignbyid(signid);
+       JSONArray jsonArray = JSON.parseArray(list.get(0).getStulist());
+
+
+       // System.out.println(classname);
+       List<Stu>  stus = stuMapper.getAllByClass(classname);
+
+       for (int i = 0; i < jsonArray.size(); i++) {
+              String ob = JSON.parseObject((String) jsonArray.get(i)).get("id").toString();
+
+            for (int j = 0; j < stus.size(); j++) {
+//                System.out.println(ob);
+//                System.out.println(stus.get(j).getUserid());
+                if (ob.equals(stus.get(j).getUserid()+"")){
+                    System.out.println(stus.get(j).getUserid());
+                    stus.remove(j);
+                    break;
+                }
+            }
+        }
+
+        return new ResponseEntity(RespCode.SUCCESS,stus);
+    }
+
 
 
     @RequestMapping("/sign/class")
@@ -70,23 +110,45 @@ public class SignController {
            return new ResponseEntity(RespCode.SUCCESS,data);
     }
 
+    /**
+     * @param signid
+     * @return
+     * 展示所有信息
+     */
+    @RequestMapping("/sign/cc/detail")
+    public ResponseEntity getdetailForCms(String signid) {
+        Map data = analyData.analyWebSocketData(signid);
+        signDataToDataBase.run(Integer.parseInt(signid));
+        return new ResponseEntity(RespCode.SUCCESS,data.get("data"));
+    }
+
 
     /**
-     * @param id
+     * @param name
+     * @param pass
      * @param time
      * @param tips
      * @return
      */
     @RequestMapping("/sign/build")
-    public ResponseEntity buildSign(Integer id, String time, String tips,String pass) {
-      if ("abcde".equals(pass)){
-          Sign sign = new Sign(110, id, timeUtil.getNowTime(), time, "[]", tips);
-          signMapper.buildsign(sign);
-          signRedisTemplate.opsForValue().set(sign.getSignid()+"", sign);
-          return new ResponseEntity(RespCode.SUCCESS, sign);
-      }else{
-          return new ResponseEntity(RespCode.SUCCESS, "密匙错误");
-      }
+    public ResponseEntity buildSign( String time, String tips,String pass,String name) {
+
+        List<Admin> data =  adminMapper.getPassword(name);
+        if(data.size() == 0){
+            return  new ResponseEntity(RespCode.SUCCESS,"没有该帐户");
+        }else{
+            if(data.get(0).getPassword().equals(pass)){
+                Sign sign = new Sign(110, data.get(0).getAdminid(), timeUtil.getNowTime(), time, "[]", tips);
+                signMapper.buildsign(sign);
+                signRedisTemplate.opsForValue().set(sign.getSignid()+"", sign);
+                return new ResponseEntity(RespCode.SUCCESS, sign);
+            }else{
+                return new ResponseEntity(RespCode.SUCCESS,"密匙验证失败");
+            }
+        }
+
+
+
     }
 
 
@@ -96,6 +158,7 @@ public class SignController {
      */
     @RequestMapping("/sign/find")
     public ResponseEntity findSign(String signid) {
+        signDataToDataBase.run(Integer.parseInt(signid));
        Object data = signRedisTemplate.opsForValue().get(signid+"");
         if (data == null) {
             return new ResponseEntity(RespCode.SUCCESS, "已经结束或不存在");
@@ -167,7 +230,6 @@ public class SignController {
 
              //存在时
              String now = timeUtil.getNowTime();
-
              //转换时间
              int creattime = Integer.parseInt(sign.getCreatetime().substring(11, 13)) * 60 * 60 +
                      Integer.parseInt(sign.getCreatetime().substring(14, 16)) * 60 +

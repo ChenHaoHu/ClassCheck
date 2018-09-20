@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ClassCheck管理</title>
+    <link rel="stylesheet" href="css/layui.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="config.js"></script>
+    <script src="jquery.min.js"></script>
+
+
+    <style>
+        .layui-form {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理帐户</label>
+            <div class="layui-input-block">
+                <input id="name" type="text" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">私有密匙</label>
+            <div class="layui-input-block">
+                <input id="pass" type="password" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">签到标题</label>
+            <div class="layui-input-block">
+                <input id="title" type="text" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">签到地点</label>
+            <div class="layui-input-block">
+                <input id="point" type="text" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input id="tips" type="text" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">时间(分钟)</label>
+            <div class="layui-input-block">
+                <input id="time" type="number" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" onclick="addSign()">添加</button>
+                <button class="layui-btn layui-btn-primary" onclick="rest()">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setCookie(c_name, value, expiredays) {
+            var exdate = new Date()
+            exdate.setDate(exdate.getDate() + expiredays)
+            document.cookie = c_name + "=" + escape(value) +
+                ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
+        }
+        function addSign() {
+            $.ajax({
+                url: url.check,
+                type: 'post',
+                data: {
+                    name: $("#name").val(),
+                    pass: $("#pass").val()
+                },
+                datatype: 'json',
+                success: function (result) {
+                    // console.log(result)
+                    var data = result.data;
+                    if (data == "没有该帐户" || data == "密匙验证失败") {
+                        alert(result.data);
+                    } else {
+                        $.ajax({
+                            url: url.build,
+                            type: 'post',
+                            data: {
+                                name: $("#name").val(),
+                                tips: $("#tips").val() + " " + $("#point").val() + " " + $("#tips").val(),
+                                pass: $("#pass").val(),
+                                time: $("#time").val()
+                            },
+                            datatype: 'json',
+                            success: function (result) {
+                                var data = result.data;
+                                if (data != "没有该帐户" && data != "密匙验证失败") {
+                                    console.log(result)
+                                    alert("创建成功");
+                                    
+                                    
+                                    setCookie('id', data.signid+"", 365);
+                                    setCookie('name', $("#name").val(), 365);
+                                    var con =  $("#tips").val() + " " + $("#point").val() + " " + $("#tips").val();
+
+                                    window.location.href = "qrcode.html?A-dsa=" + data.signid + 
+                                    "&sda=" +con + "&sas="+data.createtime;
+                                       
+                                } else {
+                                    alert(data);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

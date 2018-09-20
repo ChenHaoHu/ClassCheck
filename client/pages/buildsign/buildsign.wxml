@@ -6,7 +6,7 @@
 <view class="weui-cells weui-cells_after-title">
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="填写你本人身份编号" bindinput='changinput' id='id' />
+      <input class="weui-input" placeholder="填写你本人身份编号" bindinput='changinput' id='id' type='number'  />
     </view>
   </view>
 </view>

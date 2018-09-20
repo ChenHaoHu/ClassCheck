@@ -23,6 +23,16 @@ public interface StuMapper {
     @Select("select * from tb_stu where userid = #{userid}")
     List<Stu> findnamebyuserid(@Param("userid") String userid);
 
+    @Select("select * from tb_stu")
+    List<Stu> getAll();
+
+    @Select("select * from tb_stu where classname = #{classname}")
+    List<Stu> getAllByClass(@Param("classname")String classname);
+
+
     @Select("select count(*) from tb_stu where stuid = #{stuid}")
     int findnamebystuid(@Param("stuid") String stuid);
+
+    @Select("select count(*) from tb_stu where classname = #{classname}")
+    int findClassnumbyclassname(@Param("classname") String classname);
 }

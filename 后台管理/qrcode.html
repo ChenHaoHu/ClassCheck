@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+
+<head>
+    <title>签到码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script src="aes.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript" src="qrcode.js"></script>
+</head>
+
+<body>
+
+    <div id="qrcode" style="width:50%;  margin-top:50px; margin-left: 25%;"></div>
+
+    <a href="show.html">查看签到情况</a>
+
+    <script type="text/javascript">
+
+
+        var key = CryptoJS.enc.Utf8.parse("1234123412ABCDEF");//十六位十六进制数作为秘钥
+        var iv = CryptoJS.enc.Utf8.parse('ABCDEF1234123412');//十六位十六进制数作为秘钥偏移量
+
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 500,
+            height: 500
+        });
+
+        function makeCode() {
+
+            //    var con = min + "@" + id + "@signprogram" 
+            //    + "@" +name+ "@" + that.data.intro + "@" + that.data.time
+
+        // 1537408102624@1034@signprogram@@哈哈哈 阿三打撒 大三@2018-09-20 09:48:19
+
+        console.log(getQueryString("sda"))
+  
+            var elText = new Date().getTime() + "@" + getQueryString("A-dsa") + "@signprogram"
+                + "@" + "主码" + "@" + getQueryString("sda") + "@" + getQueryString("sas");
+
+           elText = elText.replace(/%/g, " ");
+       
+       console.log(elText)
+
+            elText = Encrypt(elText);
+
+            qrcode.makeCode(elText);
+        }
+
+        function getQueryString(name) {
+             // 获取参数
+    var url = window.location.search;
+    // 正则筛选地址栏
+    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+    // 匹配目标参数
+    var result = url.substr(1).match(reg);
+    //返回参数值
+    return result ? decodeURIComponent(result[2]) : null;
+        }
+
+        //解密方法
+        function Decrypt(word) {
+            var encryptedHexStr = CryptoJS.enc.Hex.parse(word);
+            var srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+            var decrypt = CryptoJS.AES.decrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+            return decryptedStr.toString();
+        }
+        //加密方法
+        function Encrypt(word) {
+            var srcs = CryptoJS.enc.Utf8.parse(word);
+            var encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+            return encrypted.ciphertext.toString().toUpperCase();
+        }
+
+        makeCode();
+        setInterval(makeCode, 6000);
+
+    </script>
+</body>

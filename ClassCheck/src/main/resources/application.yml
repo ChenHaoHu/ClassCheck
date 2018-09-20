@@ -8,8 +8,8 @@
 spring:
   datasource:
     username: classcheck
-    password: KYiRN7CkeHGeKJZb
-    url: jdbc:mysql://127.0.0.1:3306/classcheck?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    password: bajd8fDycySMzcfF
+    url: jdbc:mysql://47.106.147.215:3306/classcheck?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     # 初始化大小，最小，最大
@@ -36,8 +36,9 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   redis:
     database: 9
-    host: 127.0.0.1
+    host: 47.106.147.215
     port: 6379
+
 
 server:
   port: 443

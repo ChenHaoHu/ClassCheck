@@ -6,11 +6,14 @@ import com.classcheck.mapper.StuMapper;
 import com.classcheck.model.Stu;
 import com.classcheck.service.stu.StuAuthentication;
 import com.classcheck.service.time.TimeUtil;
+import com.github.pagehelper.PageHelper;
+import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +52,8 @@ public class StuController {
 
     @RequestMapping("/test")
     public ResponseEntity ds(){
-            return new ResponseEntity(RespCode.SUCCESS,"test");
-
+        PageHelper.startPage(2,1);
+        List list = stuMapper.getAll();
+            return new ResponseEntity(RespCode.SUCCESS,list);
     }
 }

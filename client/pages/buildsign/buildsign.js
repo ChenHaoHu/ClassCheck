@@ -46,10 +46,11 @@
        wx.request({
          url: api.buildsign,
          data: {
-           id: that.data.id,
+     
            time: that.data.time,
            tips: that.data.content,
-           pass: that.data.pass
+           pass: "root",
+           name:"root"
          },
          success: function(res) {
            console.log(res.data)
@@ -71,11 +72,13 @@
                  if (signlist == "") {
                    signlist = []
                  }
-                 signlist.push("编号:" + data.signid)
-
+                //  signlist.push("编号:" + data.signid)
+                 signlist.push({
+                   id: data.signid,
+                   time: data.createtime,
+                   con: data.content
+                 })
                  wx.setStorageSync("signlist", signlist)
-                 
-                 console.log("编号:" + data.signid)
                  wx.navigateTo({
                    url: '../qrcode/qrcode?id=' + data.signid + "&intro=" + data.content + "&time=" + data.createtime,
                  })

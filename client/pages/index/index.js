@@ -5,6 +5,7 @@ Page({
     name: "no"
   },
   onLoad: function() {
+
     var islogin = wx.getStorageSync("islogin");
     var that = this;
     if (islogin) {
@@ -16,7 +17,7 @@ Page({
     }
   },
 
-  onShow:function(){
+  onShow: function() {
     var islogin = wx.getStorageSync("islogin");
     var that = this;
     if (islogin) {
@@ -66,12 +67,24 @@ Page({
                       console.log(res)
                       if (res.data.data != "已经签到过了") {
                         var signlist = wx.getStorageSync("signlist");
-                        if(signlist == ""){
+                        if (signlist == "") {
                           signlist = []
                         }
-                        signlist.push("编号:" + data[1])
-                        console.log(signlist)
-                        wx.setStorageSync("signlist", signlist)
+                        var flag = false;
+                        for (var i = 0; i < signlist.size; i++) {
+                          if (signlist.id == data[1]) {
+                            flag = true;
+                            break;
+                          }
+                        }
+                        if (flag == false) {
+                          signlist.push({
+                            id: data[1],
+                            time: data[5],
+                            con: data[4]
+                          })
+                          wx.setStorageSync("signlist", signlist)
+                        }
                         wx.showModal({
                           title: res.data.data,
                           success: function(res) {
@@ -102,7 +115,7 @@ Page({
                               title: '分享',
                               content: '是否愿意分享本次二维码给他人',
                               success: function(res) {
-                                
+
                                 if (res.confirm) {
                                   wx.navigateTo({
                                     url: '../qrcode/qrcode?id=' + data[1] + "&intro=" + data[5] + "&time=" + data[4],
@@ -175,8 +188,8 @@ Page({
           wx.showModal({
             title: '提示',
             content: data[5] + "  " + data[4],
-            showCancel:false,
-            success:function(e){
+            showCancel: false,
+            success: function(e) {
               console.log(data[0] - new Date().getTime())
               console.log(data)
               if (data[2] == "signprogram") {
@@ -185,8 +198,21 @@ Page({
                   if (signlist == "") {
                     signlist = []
                   }
-                  signlist.push("编号:" + data[1])
-                  wx.setStorageSync("signlist", signlist)
+                  var flag = false;
+                  for (var i = 0; i < signlist.size; i++) {
+                    if (signlist.id == data[1]) {
+                      flag = true;
+                      break;
+                    }
+                  }
+                  if (flag == false) {
+                    signlist.push({
+                      id: data[1],
+                      time: data[5],
+                      con: data[4]
+                    })
+                    wx.setStorageSync("signlist", signlist)
+                  }
                   wx.navigateTo({
                     url: '../rest/rest?signid=' + data[1] + "&codetype=" + data[3],
                   })
@@ -217,25 +243,30 @@ Page({
         content: '您还没有任何签到',
       })
     } else {
-      wx.showActionSheet({
-        itemList: temp,
-        success:function(res){
-          console.log(temp[res.tapIndex])
-          var signid = temp[res.tapIndex].split(":")[1]
-          wx.navigateTo({
-            url: '../showbord/showbord?signid='+signid,
-          })
+      // wx.showActionSheet({
+      //   itemList: temp,
+      //   success: function(res) {
+      //     console.log(temp[res.tapIndex])
+      //     var signid = temp[res.tapIndex].split(":")[1]
+      //     wx.navigateTo({
+      //       url: '../showbord/showbord?signid=' + signid,
+      //     })
 
-        }
+      //   }
+      // })
+
+      wx.navigateTo({
+        url: '../signlist/signlist',
       })
+
     }
   },
-  tobuild:function(){
+  tobuild: function() {
     wx.navigateTo({
       url: '../buildsign/buildsign',
     })
   },
-  toshare:function(){
+  toshare: function() {
     var temp = wx.getStorageSync("signlist")
     console.log(temp)
     if (temp == "") {
@@ -244,24 +275,28 @@ Page({
         content: '您还没有任何签到',
       })
     } else {
-      wx.showActionSheet({
-        itemList: temp,
-        success: function (res) {
-          console.log(temp[res.tapIndex])
-          var signid = temp[res.tapIndex].split(":")[1]
-          wx.request({
-            url: api.findsign,
-            data:{
-              signid: signid
-            },
-            success:function(res){
-              console.log(res)
-              wx.navigateTo({
-                url: '../qrcode/qrcode?id=' + signid + "&intro=" + res.data.data.content + "&time=" + res.data.data.createtime,
-              })
-            }
-          })
-        }
+      // wx.showActionSheet({
+      //   itemList: temp,
+      //   success: function(res) {
+      //     console.log(temp[res.tapIndex])
+      //     var signid = temp[res.tapIndex].split(":")[1]
+      //     wx.request({
+      //       url: api.findsign,
+      //       data: {
+      //         signid: signid
+      //       },
+      //       success: function(res) {
+      //         console.log(res)
+      //         wx.navigateTo({
+      //           url: '../qrcode/qrcode?id=' + signid + "&intro=" + res.data.data.content + "&time=" + res.data.data.createtime,
+      //         })
+      //       }
+      //     })
+      //   }
+      // })
+
+      wx.navigateTo({
+        url: '../signlist/signlist',
       })
     }
   }

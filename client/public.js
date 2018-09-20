@@ -16,6 +16,9 @@ function Encrypt(word) {
   return encrypted.ciphertext.toString().toUpperCase();
 }
 
+
+
 //暴露接口
 module.exports.Decrypt = Decrypt;
 module.exports.Encrypt = Encrypt;
+

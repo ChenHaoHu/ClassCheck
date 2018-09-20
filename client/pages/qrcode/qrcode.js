@@ -29,6 +29,7 @@ Page({
     console.log(id)
     var name = wx.getStorageSync("name")
     var con = min + "@" + id + "@signprogram" + "@" +name+ "@" + that.data.intro + "@" + that.data.time
+    console.log(con)
    con = Dec.Encrypt(con);
     that.createQrCode(con, "mycanvas", size.w, size.h);
   aa =  setInterval(function(){

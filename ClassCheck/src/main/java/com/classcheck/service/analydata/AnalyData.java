@@ -18,4 +18,5 @@ public interface AnalyData {
 
     List getClassData(String signid);
 
+
 }
